@@ -1,5 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\SettingController;
+
+
 Route::redirect('/', '/login');
 
 Route::redirect('/home', '/admin');
@@ -24,4 +33,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('products/destroy', 'ProductsController@massDestroy')->name('products.massDestroy');
 
     Route::resource('products', 'ProductsController');
+
+    Route::get('customer', [ CustomerController::class, 'index' ])->name('customer');
+
+    Route::get('contact', [ ContactController::class, 'index' ])->name('contact');
+
+    Route::get('loan', [ LoanController::class, 'index' ])->name('loan');
+
+    Route::get('notification', [ NotificationController::class, 'index' ])->name('notification');
+
+    Route::get('referral', [ ReferralController::class, 'index' ])->name('referral');
+
+    Route::get('setting', [ SettingController::class, 'index' ])->name('setting');
 });

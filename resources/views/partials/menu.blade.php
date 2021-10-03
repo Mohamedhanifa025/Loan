@@ -72,6 +72,59 @@
                         </ul>
                     </li>
                 @endcan
+                <li class="nav-item">
+                    <a href="{{ route("admin.customer") }}" class="nav-link">
+                        <p>
+
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span>{{ trans('Customers') }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.notification") }}" class="nav-link">
+                        <p>
+
+                        <i class="fas fa-bell" aria-hidden="true"></i>
+                            <span>{{ trans('Notifications') }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.contact") }}" class="nav-link">
+                        <p>
+
+                            <i class="fas fa-address-book" aria-hidden="true"></i>
+                            <span>{{ trans('Contacts') }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.loan") }}" class="nav-link">
+                        <p>
+                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                            <span>{{ trans('Apply_loans') }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.referral") }}" class="nav-link">
+                        <p>
+
+                            <i class="fas fa-sync" aria-hidden="true"></i>
+                            <span>{{ trans('Referrals') }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.setting") }}" class="nav-link">
+                        <p>
+
+                            <i class="fas fa-cogs" aria-hidden="true"></i>
+                            <span>{{ trans('Settings') }}</span>
+                        </p>
+                    </a>
+                </li>
                 @can('product_access')
                     <li class="nav-item">
                         <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'active' : '' }}">
