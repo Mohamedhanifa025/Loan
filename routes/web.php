@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('customer', [ CustomerController::class, 'index' ])->name('customer');
 
+    Route::delete('customer/destroy', 'CustomerController@massDestroy')->name('customer.massDestroy');
+
+    Route::resource('customer', 'CustomerController');
+
     Route::get('contact', [ ContactController::class, 'index' ])->name('contact');
 
     Route::get('loan', [ LoanController::class, 'index' ])->name('loan');
