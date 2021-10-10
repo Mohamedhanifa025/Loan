@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contacts;
 
-class CustomerController extends Controller
+class ContactController extends Controller
 {
     
     public function index()

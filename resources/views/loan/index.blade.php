@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('product_create')
+@can('loan_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("contact.create") }}">
-                {{ trans('global.add') }} {{ trans('global.contact.title_singular') }}
+            <a class="btn btn-success" href="{{ route("loan.create") }}">
+                {{ trans('global.add') }} {{ trans('global.loan.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('global.contact.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.loan.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -23,10 +23,22 @@
 
                         </th>
                         <th>
-                            {{ trans('global.contact.fields.customer_id') }}
+                            {{ trans('global.loan.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('global.contact.fields.mobile_number') }}
+                            {{ trans('global.loan.fields.company_name') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.salary') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.location') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.message') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -34,30 +46,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($contacts as $key => $contact)
-                        <tr data-entry-id="{{ $contact->id }}">
+                    @foreach($loans as $key => $loan)
+                        <tr data-entry-id="{{ $loan->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $contact->customer_id ?? '' }}
+                                {{ $loan->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ $contact->mobile_number ?? '' }}
+                                {{ $loan->company_name ?? '' }}
                             </td>
                             <td>
-                                @can('contact_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('contact.show', $contact->id) }}">
+                                {{ $loan->salary ?? '' }}
+                            </td>
+                            <td>
+                                {{ $loan->location ?? '' }}
+                            </td>
+                            <td>
+                                {{ $loan->message ?? '' }}
+                            </td>
+                            <td>
+                                {{ $loan->status ?? '' }}
+                            </td>
+
+                            <td>
+                                @can('loan_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('loan.show', $loan->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                @can('contact_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('contact.edit', $contact->id) }}">
+                                @can('loan_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('loan.edit', $loan->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-                                @can('contact_delete')
-                                    <form action="{{ route('contact.destroy', $contact->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('loan_delete')
+                                    <form action="{{ route('loan.destroy', $loan->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -80,7 +105,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('contact.massDestroy') }}",
+    url: "{{ route('loan.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
