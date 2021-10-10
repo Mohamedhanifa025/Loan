@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('mobile_number') ? 'has-error' : '' }}">
-                <label for="mobile_number">{{ trans('global.product.fields.mobile_number') }}</label>
+                <label for="mobile_number">{{ trans('global.customer.fields.mobile_number') }}</label>
                 <input type="number" id="mobile_number" name="mobile_number" class="form-control" value="{{ old('name', isset($customer) ? $customer->mobile_number : '') }}">
                 @if($errors->has('mobile_number'))
                     <p class="help-block">
