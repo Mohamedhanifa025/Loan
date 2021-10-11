@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("loan.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.loan.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group {{ $errors->has('company_name') ? 'has-error' : '' }}">
                 <label for="company_name">{{ trans('global.loan.fields.company_name') }}*</label>

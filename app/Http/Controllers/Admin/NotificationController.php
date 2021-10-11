@@ -12,13 +12,13 @@ class NotificationController extends Controller
   public function index()
   {
       $notifications = Notification::all();
-    return view('notification.index' , compact('notifications'));
+    return view('admin.notification.index' , compact('notifications'));
   }
   public function create()
   {
       abort_unless(\Gate::allows('notification_create'), 403);
 
-      return view('notification.create');
+      return view('admin.notification.create');
   }
 
   public function store(Request $request)
@@ -26,14 +26,14 @@ class NotificationController extends Controller
 
       $notification = Notification::create($request->all());
 
-      return redirect()->route('notification.index');
+      return redirect()->route('admin.notification.index');
   }
 
   public function edit(Notification $notification)
   {
       abort_unless(\Gate::allows('notification_edit'), 403);
 
-      return view('notification.edit', compact('notification'));
+      return view('admin.notification.edit', compact('notification'));
   }
 
   public function update(Request $request, Notification $notification)
@@ -42,14 +42,14 @@ class NotificationController extends Controller
 
       $notification->update($request->all());
 
-      return redirect()->route('notification.index');
+      return redirect()->route('admin.notification.index');
   }
 
   public function show(Notification $notification)
   {
       abort_unless(\Gate::allows('notification_show'), 403);
 
-      return view('notification.show', compact('notification'));
+      return view('admin.notification.show', compact('notification'));
   }
 
   public function destroy(Notification $notification)

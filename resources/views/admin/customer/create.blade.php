@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("customer.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.customer.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('global.customer.fields.name') }}*</label>

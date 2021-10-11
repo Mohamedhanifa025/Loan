@@ -13,13 +13,13 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-      return view('customer.index' , compact('customers'));
+      return view('admin.customer.index' , compact('customers'));
     }
     public function create()
     {
         abort_unless(\Gate::allows('customer_create'), 403);
 
-        return view('customer.create');
+        return view('admin.customer.create');
     }
 
     public function store(Request $request)
@@ -27,14 +27,14 @@ class CustomerController extends Controller
 
         $customer = Customer::create($request->all());
 
-        return redirect()->route('customer.index');
+        return redirect()->route('admin.customer.index');
     }
 
     public function edit(Customer $customer)
     {
         abort_unless(\Gate::allows('customer_edit'), 403);
 
-        return view('customer.edit', compact('customer'));
+        return view('admin.customer.edit', compact('customer'));
     }
 
     public function update(Request $request, Customer $customer)
@@ -43,14 +43,14 @@ class CustomerController extends Controller
 
         $customer->update($request->all());
 
-        return redirect()->route('customer.index');
+        return redirect()->route('admin.customer.index');
     }
 
     public function show(Customer $customer)
     {
         abort_unless(\Gate::allows('customer_show'), 403);
 
-        return view('customer.show', compact('customer'));
+        return view('admin.customer.show', compact('customer'));
     }
 
     public function destroy(Customer $customer)

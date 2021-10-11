@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('customer_create')
+@can('notification_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("customer.create") }}">
-                {{ trans('global.add') }} {{ trans('global.customer.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.notification.create") }}">
+                {{ trans('global.add') }} {{ trans('global.notification.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('global.customer.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.notification.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -23,28 +23,13 @@
 
                         </th>
                         <th>
-                            {{ trans('global.customer.fields.name') }}
+                            {{ trans('global.notification.fields.user_id') }}
                         </th>
                         <th>
-                            {{ trans('global.customer.fields.mobile_number') }}
+                            {{ trans('global.notification.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('global.customer.fields.email') }}
-                        </th>
-                        <th>
-                            {{ trans('global.customer.fields.address') }}
-                        </th>
-                        <th>
-                            {{ trans('global.customer.fields.city') }}
-                        </th>
-                        <th>
-                            {{ trans('global.customer.fields.pincode') }}
-                        </th>
-                        <th>
-                            {{ trans('global.customer.fields.referred_by') }}
-                        </th>
-                        <th>
-                            {{ trans('global.customer.fields.status') }}
+                            {{ trans('global.notification.fields.description') }}
                         </th>
                         <th>
                             &nbsp;
@@ -52,48 +37,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($customers as $key => $customer)
-                        <tr data-entry-id="{{ $customer->id }}">
+                    @foreach($notifications as $key => $notification)
+                        <tr data-entry-id="{{ $notifications->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $customer->name ?? '' }}
+                                {{ $notification->user_id ?? '' }}
                             </td>
                             <td>
-                                {{ $customer->mobile_number ?? '' }}
+                                {{ $notification->title ?? '' }}
                             </td>
                             <td>
-                                {{ $customer->email ?? '' }}
+                                {{ $notification->description ?? '' }}
                             </td>
                             <td>
-                                {{ $customer->address ?? '' }}
-                            </td>
-                            <td>
-                                {{ $customer->city ?? '' }}
-                            </td>
-                            <td>
-                                {{ $customer->pincode ?? '' }}
-                            </td>
-                            <td>
-                                {{ $customer->referred_by ?? '' }}
-                            </td>
-                            <td>
-                                {{ $customer->status ?? '' }}
-                            </td>
-                            <td>
-                                @can('customer_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('customer.show', $customer->id) }}">
+                                @can('notification_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.notification.show', $notification->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                @can('customer_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('customer.edit', $customer->id) }}">
+                                @can('notification_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.notification.edit', $notification->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-                                @can('customer_delete')
-                                    <form action="{{ route('customer.destroy', $customer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('notification_delete')
+                                    <form action="{{ route('admin.notification.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -116,7 +86,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('customer.massDestroy') }}",
+    url: "{{ route('admin.notification.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

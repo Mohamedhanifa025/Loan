@@ -13,13 +13,13 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contacts::all();
-      return view('contact.index' , compact('contacts'));
+      return view('admin.contact.index' , compact('contacts'));
     }
     public function create()
     {
         abort_unless(\Gate::allows('contacts_create'), 403);
 
-        return view('contact.create');
+        return view('admin.contact.create');
     }
 
     public function store(Request $request)
@@ -27,14 +27,14 @@ class ContactController extends Controller
 
         $contact = Contacts::create($request->all());
 
-        return redirect()->route('contact.index');
+        return redirect()->route('admin.contact.index');
     }
 
     public function edit(Contacts $contact)
     {
         abort_unless(\Gate::allows('contacts_edit'), 403);
 
-        return view('contact.edit', compact('contact'));
+        return view('admin.contact.edit', compact('contact'));
     }
 
     public function update(Request $request, Contacts $contact)
@@ -43,14 +43,14 @@ class ContactController extends Controller
 
         $contact->update($request->all());
 
-        return redirect()->route('contact.index');
+        return redirect()->route('admin.contact.index');
     }
 
     public function show(Contacts $contact)
     {
         abort_unless(\Gate::allows('contacts_show'), 403);
 
-        return view('contact.show', compact('contact'));
+        return view('admin.contact.show', compact('contact'));
     }
 
     public function destroy(Contacts $contact)

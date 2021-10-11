@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('loan_create')
+@can('referral_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("loan.create") }}">
-                {{ trans('global.add') }} {{ trans('global.loan.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.referral.create") }}">
+                {{ trans('global.add') }} {{ trans('global.referral.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('global.loan.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.referral.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -23,22 +23,16 @@
 
                         </th>
                         <th>
-                            {{ trans('global.loan.fields.customer_id') }}
+                            {{ trans('global.referral.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('global.loan.fields.company_name') }}
+                            {{ trans('global.referral.fields.refered_id') }}
                         </th>
                         <th>
-                            {{ trans('global.loan.fields.salary') }}
+                            {{ trans('global.referral.fields.points') }}
                         </th>
                         <th>
-                            {{ trans('global.loan.fields.location') }}
-                        </th>
-                        <th>
-                            {{ trans('global.loan.fields.message') }}
-                        </th>
-                        <th>
-                            {{ trans('global.loan.fields.status') }}
+                            {{ trans('global.referral.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -46,43 +40,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($loans as $key => $loan)
-                        <tr data-entry-id="{{ $loan->id }}">
+                    @foreach($referrals as $key => $referral)
+                        <tr data-entry-id="{{ $referral->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $loan->customer_id ?? '' }}
+                                {{ $referral->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ $loan->company_name ?? '' }}
+                                {{ $referral->refered_id ?? '' }}
                             </td>
                             <td>
-                                {{ $loan->salary ?? '' }}
+                                {{ $referral->points ?? '' }}
                             </td>
                             <td>
-                                {{ $loan->location ?? '' }}
+                                {{ $referral->status ?? '' }}
                             </td>
                             <td>
-                                {{ $loan->message ?? '' }}
-                            </td>
-                            <td>
-                                {{ $loan->status ?? '' }}
-                            </td>
-
-                            <td>
-                                @can('loan_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('loan.show', $loan->id) }}">
+                                @can('referral_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.referral.show', $referral->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                @can('loan_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('loan.edit', $loan->id) }}">
+                                @can('referral_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.referral.edit', $referral->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-                                @can('loan_delete')
-                                    <form action="{{ route('loan.destroy', $loan->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('referral_delete')
+                                    <form action="{{ route('admin.referral.destroy', $referral->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -105,7 +92,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('loan.massDestroy') }}",
+    url: "{{ route('admin.referral.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

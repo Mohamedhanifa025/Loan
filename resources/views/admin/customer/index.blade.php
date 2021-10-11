@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('product_create')
+@can('customer_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("contact.create") }}">
-                {{ trans('global.add') }} {{ trans('global.contact.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.customer.create") }}">
+                {{ trans('global.add') }} {{ trans('global.customer.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('global.contact.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.customer.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -23,10 +23,28 @@
 
                         </th>
                         <th>
-                            {{ trans('global.contact.fields.customer_id') }}
+                            {{ trans('global.customer.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('global.contact.fields.mobile_number') }}
+                            {{ trans('global.customer.fields.mobile_number') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.email') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.address') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.city') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.pincode') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.referred_by') }}
+                        </th>
+                        <th>
+                            {{ trans('global.customer.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -34,30 +52,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($contacts as $key => $contact)
-                        <tr data-entry-id="{{ $contact->id }}">
+                    @foreach($customers as $key => $customer)
+                        <tr data-entry-id="{{ $customer->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $contact->customer_id ?? '' }}
+                                {{ $customer->name ?? '' }}
                             </td>
                             <td>
-                                {{ $contact->mobile_number ?? '' }}
+                                {{ $customer->mobile_number ?? '' }}
                             </td>
                             <td>
-                                @can('contact_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('contact.show', $contact->id) }}">
+                                {{ $customer->email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customer->address ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customer->city ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customer->pincode ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customer->referred_by ?? '' }}
+                            </td>
+                            <td>
+                                {{ $customer->status ?? '' }}
+                            </td>
+                            <td>
+                                @can('customer_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.customer.show', $customer->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                @can('contact_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('contact.edit', $contact->id) }}">
+                                @can('customer_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.customer.edit', $customer->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-                                @can('contact_delete')
-                                    <form action="{{ route('contact.destroy', $contact->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('customer_delete')
+                                    <form action="{{ route('admin.customer.destroy', $customer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -80,7 +116,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('contact.massDestroy') }}",
+    url: "{{ route('admin.customer.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

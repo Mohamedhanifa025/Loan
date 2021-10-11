@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('notification_create')
+@can('loan_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("notification.create") }}">
-                {{ trans('global.add') }} {{ trans('global.notification.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.loan.create") }}">
+                {{ trans('global.add') }} {{ trans('global.loan.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('global.notification.title_singular') }} {{ trans('global.list') }}
+        {{ trans('global.loan.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -23,13 +23,22 @@
 
                         </th>
                         <th>
-                            {{ trans('global.notification.fields.user_id') }}
+                            {{ trans('global.loan.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('global.notification.fields.title') }}
+                            {{ trans('global.loan.fields.company_name') }}
                         </th>
                         <th>
-                            {{ trans('global.notification.fields.description') }}
+                            {{ trans('global.loan.fields.salary') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.location') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.message') }}
+                        </th>
+                        <th>
+                            {{ trans('global.loan.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -37,33 +46,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($notifications as $key => $notification)
-                        <tr data-entry-id="{{ $notifications->id }}">
+                    @foreach($loans as $key => $loan)
+                        <tr data-entry-id="{{ $loan->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $notification->user_id ?? '' }}
+                                {{ $loan->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ $notification->title ?? '' }}
+                                {{ $loan->company_name ?? '' }}
                             </td>
                             <td>
-                                {{ $notification->description ?? '' }}
+                                {{ $loan->salary ?? '' }}
                             </td>
                             <td>
-                                @can('notification_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('notification.show', $notification->id) }}">
+                                {{ $loan->location ?? '' }}
+                            </td>
+                            <td>
+                                {{ $loan->message ?? '' }}
+                            </td>
+                            <td>
+                                {{ $loan->status ?? '' }}
+                            </td>
+
+                            <td>
+                                @can('loan_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.loan.show', $loan->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                @can('notification_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('notification.edit', $notification->id) }}">
+                                @can('loan_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.loan.edit', $loan->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-                                @can('notification_delete')
-                                    <form action="{{ route('notification.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('loan_delete')
+                                    <form action="{{ route('admin.loan.destroy', $loan->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -86,7 +105,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('notification.massDestroy') }}",
+    url: "{{ route('admin.loan.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

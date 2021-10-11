@@ -12,13 +12,13 @@ class LoanController extends Controller
   public function index()
   {
       $loans = Apply_loan::all();
-    return view('loan.index' , compact('loans'));
+    return view('admin.loan.index' , compact('loans'));
   }
   public function create()
   {
       abort_unless(\Gate::allows('loan_create'), 403);
 
-      return view('loan.create');
+      return view('admin.loan.create');
   }
 
   public function store(Request $request)
@@ -26,14 +26,14 @@ class LoanController extends Controller
 
       $loan = Apply_loan::create($request->all());
 
-      return redirect()->route('loan.index');
+      return redirect()->route('admin.loan.index');
   }
 
   public function edit(Apply_loan $loan)
   {
       abort_unless(\Gate::allows('loan_edit'), 403);
 
-      return view('loan.edit', compact('loan'));
+      return view('admin.loan.edit', compact('loan'));
   }
 
   public function update(Request $request, Apply_loan $loan)
@@ -42,14 +42,14 @@ class LoanController extends Controller
 
       $loan->update($request->all());
 
-      return redirect()->route('loan.index');
+      return redirect()->route('admin.loan.index');
   }
 
   public function show(Apply_loan $loan)
   {
       abort_unless(\Gate::allows('loan_show'), 403);
 
-      return view('loan.show', compact('loan'));
+      return view('admin.loan.show', compact('loan'));
   }
 
   public function destroy(Apply_loan $loan)

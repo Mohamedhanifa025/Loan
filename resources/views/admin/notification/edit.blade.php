@@ -3,12 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('global.notification.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('global.notification.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form action="{{ route("notification.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.notification.update", [$notification->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                 <label for="title">{{ trans('global.notification.fields.title') }}*</label>
                 <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($notification) ? $notification->title : '') }}">

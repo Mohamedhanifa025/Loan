@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("loan.update",  [$loan->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.loan.update",  [$loan->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group {{ $errors->has('company_name') ? 'has-error' : '' }}">
