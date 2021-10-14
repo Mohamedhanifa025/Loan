@@ -36,7 +36,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('products', 'ProductsController');
     
                 /*----Customer----*/
-   // Route::get('customer', [ CustomerController::class, 'index' ])->name('customer');
 
     Route::delete('customer/destroy', 'CustomerController@massDestroy')->name('customer.massDestroy');
 
@@ -44,15 +43,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
                 /*----Contact----*/
 
-   // Route::get('contact', [ ContactController::class, 'index' ])->name('contact');
-
     Route::delete('contact/destroy', 'ContactController@massDestroy')->name('contact.massDestroy');
 
     Route::resource('contact', 'ContactController');
 
                  /*----Loan----*/    
-
-   // Route::get('loan', [ LoanController::class, 'index' ])->name('loan');
 
     Route::delete('loan/destroy', 'LoanController@massDestroy')->name('loan.massDestroy');
 
@@ -60,23 +55,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
                 /*----Notification----*/   
 
-   // Route::get('notification', [ NotificationController::class, 'index' ])->name('notification');
-
     Route::delete('notification/destroy', 'LoanController@massDestroy')->name('notification.massDestroy');
 
     Route::resource('notification', 'NotificationController');
 
                  /*----Referral----*/  
 
-   // Route::get('referral', [ ReferralController::class, 'index' ])->name('referral');
-
     Route::delete('referral/destroy', 'ReferralController@massDestroy')->name('referral.massDestroy');
 
     Route::resource('referral', 'ReferralController');
 
                 /*----Setting----*/ 
-
-   // Route::get('setting', [ SettingController::class, 'index' ])->name('setting');
 
     Route::delete('setting/destroy', 'SettingController@massDestroy')->name('setting.massDestroy');
 

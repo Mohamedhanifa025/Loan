@@ -98,7 +98,7 @@
                 </li>
             
                 <li class="nav-item">
-                    <a href="{{ route("admin.notification") }}" class="nav-link">
+                    <a href="{{ route("admin.notification.index") }}" class="nav-link">
                         <i class="fas fa-bell" aria-hidden="true">
 
                         </i>
@@ -109,7 +109,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route("admin.contact") }}" class="nav-link">
+                    <a href="{{ route("admin.contact.index") }}" class="nav-link">
                         <i class="fas fa-address-book" aria-hidden="true">
 
                         </i>
@@ -120,7 +120,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route("admin.loan") }}" class="nav-link">
+                    <a href="{{ route("admin.loan.index") }}" class="nav-link">
                         <i class="fa fa-address-card" aria-hidden="true">
 
                         </i>
@@ -131,7 +131,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route("admin.referral") }}" class="nav-link">
+                    <a href="{{ route("admin.referral.index") }}" class="nav-link">
                          <i class="fas fa-sync" aria-hidden="true">
 
                          </i>
@@ -142,7 +142,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route("admin.setting") }}" class="nav-link">
+                    <a href="{{ route("admin.setting.index") }}" class="nav-link">
                          <i class="fas fa-cogs" aria-hidden="true">
 
                          </i>
