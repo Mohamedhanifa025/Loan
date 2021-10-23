@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
 namespace App\Http\Controllers\Admin;
-namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contacts;
 
 class ContactController extends Controller
 {
-    
+
     public function index()
     {
         $contacts = Contacts::all();

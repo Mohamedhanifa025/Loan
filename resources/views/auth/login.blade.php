@@ -4,7 +4,8 @@
     <div class="login-logo">
         <div class="login-logo">
             <a href="#">
-                {{ trans('global.site_title') }}
+                <h1 class="text-white font-weight-light mb-3">Welcome To!</h1>
+                <img src="{{ asset('img/logo-white.svg') }}" alt="{{ trans('global.site_title') }}" />
             </a>
         </div>
     </div>
@@ -66,5 +67,32 @@
         </div>
         <!-- /.login-card-body -->
     </div>
+    <footer id="footer-main">
+        <div class="container">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-12 mb-5">
+                    <div class="copyright text-center text-white animated fadeInUp">
+                        © 2020 Loanzspot All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
+    <style>
+        /*Login*/
+
+        .login-page {
+            min-height: 100vh;
+            background: rgb(18, 168, 238);
+            background: -moz-linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+            background: -webkit-linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+            background: linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#12a8ee", endColorstr="#490fdd", GradientType=1);
+        }
+
+        .login-page .card {
+            background: #ecedf5;
+        }
+    </style>
 @endsection

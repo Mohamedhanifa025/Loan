@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 917px;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <span class="brand-text font-weight-light">Project</span>
+        <img src="{{ asset('img/logo-white.svg') }}" alt="{{ trans('global.site_title') }}" />
     </a>
 
     <!-- Sidebar -->
@@ -72,7 +72,7 @@
                         </ul>
                     </li>
                 @endcan
-                @can('product_access')
+                {{--@can('product_access')
                     <li class="nav-item">
                         <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'active' : '' }}">
                             <i class="fas fa-cogs">
@@ -83,8 +83,8 @@
                             </p>
                         </a>
                     </li>
-                @endcan
-                
+                @endcan--}}
+
                 <li class="nav-item">
                     <a href="{{ route("admin.customer.index") }}" class="nav-link {{ request()->is('admin/customer') || request()->is('admin/customer/*') ? 'active' : '' }}">
                     <i class="fa fa-users" aria-hidden="true">
@@ -93,10 +93,10 @@
                     <p>
                         <span>{{ trans('Customers') }}</span>
                     </p>
-                    
+
                     </a>
                 </li>
-            
+
                 <li class="nav-item">
                     <a href="{{ route("admin.notification.index") }}" class="nav-link">
                         <i class="fas fa-bell" aria-hidden="true">
@@ -151,7 +151,7 @@
                         </p>
                     </a>
                 </li>
-               
+
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                             <i class="fas fa-sign-out-alt">
