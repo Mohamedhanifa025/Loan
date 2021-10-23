@@ -1,3 +1,4 @@
+{{--
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 917px;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
@@ -72,7 +73,8 @@
                         </ul>
                     </li>
                 @endcan
-                {{--@can('product_access')
+                --}}
+{{--@can('product_access')
                     <li class="nav-item">
                         <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'active' : '' }}">
                             <i class="fas fa-cogs">
@@ -83,7 +85,8 @@
                             </p>
                         </a>
                     </li>
-                @endcan--}}
+                @endcan--}}{{--
+
 
                 <li class="nav-item">
                     <a href="{{ route("admin.customer.index") }}" class="nav-link {{ request()->is('admin/customer') || request()->is('admin/customer/*') ? 'active' : '' }}">
@@ -168,3 +171,79 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+--}}
+<!-- Sidenav -->
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <a class="navbar-brand" href="dashboard">
+                <img src="{{ asset('assets/img/logo.svg') }}" class="navbar-brand-img" alt="Logo">
+            </a>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("admin.home") }}">
+                            <i class="fa fa-tachometer-alt"></i>
+                            <span class="nav-link-text">{{ trans('global.dashboard') }}</span>
+                        </a>
+                    </li>
+                    @can('user_management_access')
+                        <li class="nav-item ">
+                            <a class="nav-link" href="contacts">
+                                <i class="fa fa-address-book"></i>
+                                <span class="nav-link-text">Contacts</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ request()->is('admin/permissions*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
+                            <a class="nav-link" href="{{ route("admin.users.index") }}">
+                                <i class="fa fa-users"></i>
+                                <span class="nav-link-text">{{ trans('global.userManagement.title') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customers">
+                                <i class="fa fa-users"></i>
+                                <span class="nav-link-text">Customers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="edit-profile">
+                                <i class="fa fa-user"></i>
+                                <span class="nav-link-text">My Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="notifications">
+                                <i class="fa fa-bell"></i>
+                                <span class="nav-link-text">Notifications</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings">
+                                <i class="fa fa-cog"></i>
+                                <span class="nav-link-text">Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index">
+                                <i class="fa fa-sign-out-alt"></i>
+                                <span class="nav-link-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="apply-loan">
+                                <i class="fa fa-sign-out-alt"></i>
+                                <span class="nav-link-text">Apply Loan</span>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

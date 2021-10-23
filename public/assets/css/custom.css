@@ -1,0 +1,516 @@
+/*Custom CSS*/
+
+
+/*
+490fdd
+12a8ee
+*/
+
+
+/*Colors*/
+
+:root {
+    --primary: #490fdd;
+    --secondary: #12a8ee;
+    --primary-font-color: #282c31;
+    --form-bg: #ecedf5
+}
+
+a,
+a:not([href]) {
+    cursor: pointer;
+    color: var(--primary);
+}
+
+a:hover,
+a:not([href]):hover {
+    text-decoration: underline;
+}
+
+.bg-primary {
+    background: var(--primary) !important;
+}
+
+.bg-secondary {
+    background: var(--secondary) !important;
+}
+
+.bg-form {
+    background: var(--form-bg) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.text-secondary {
+    color: var(--secondary) !important;
+}
+
+
+/*Buttons*/
+
+.btn {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 15px;
+    border: 0;
+    transform: none !important;
+    text-decoration: none !important;
+}
+
+.btn.btn-sm {
+    font-size: 12px;
+    padding: 7px 15px
+}
+
+.btn-primary,
+.bg-primary-gradient {
+    background: rgb(18, 168, 238);
+    background: -moz-linear-gradient(146deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: -webkit-linear-gradient(146deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: linear-gradient(146deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#12a8ee", endColorstr="#490fdd", GradientType=1);
+}
+
+.btn-primary:hover {
+    background: rgb(18, 168, 238);
+    background: -moz-linear-gradient(321deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: -webkit-linear-gradient(321deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: linear-gradient(321deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#12a8ee", endColorstr="#490fdd", GradientType=1);
+}
+
+a {
+    transition: 0.2s;
+}
+
+.link {
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.link:hover {
+    color: var(--secondary);
+}
+
+.link .fa-chevron-right {
+    margin-left: 5px;
+}
+
+.modal {
+    z-index: 99999;
+}
+
+.modal-backdrop {
+    z-index: 9999;
+}
+
+.modal-backdrop.show {
+    opacity: 0.4 !important;
+}
+
+.modal-sm {
+    max-width: 445px !important;
+}
+
+
+/*Forms*/
+
+.form-control {
+    color: #282c31 !important;
+    font-size: 14px;
+    height: 42px;
+    padding: 0 10px;
+    font-weight: 600;
+    border-color: #bbb;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+textarea.form-control {
+    padding: 10px;
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+    white-space: normal;
+}
+
+
+/*Common*/
+
+body {
+    color: var(--primary-font-color);
+    font-weight: 400;
+    font-size: 14px;
+    background: #edeef3;
+}
+
+p {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.card {
+    box-shadow: 0 0 1.5rem 0 rgb(136 152 170 / 40%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    color: var(--primary-font-color);
+}
+
+.h1 {
+    font-size: 31px;
+}
+
+h3,
+.h3 {
+    font-size: 19px;
+}
+
+table.dataTable {
+    border-color: #5f5f5f !important;
+}
+
+table.dataTable thead .sorting {
+    background-image: url("../img/sort_both.png")
+}
+
+table.dataTable thead .sorting_asc {
+    background-image: url("../img/sort_asc.png")
+}
+
+table.dataTable thead .sorting_desc {
+    background-image: url("../img/sort_desc.png")
+}
+
+.dataTables_wrapper {
+    margin-bottom: 20px;
+}
+
+.table thead th,
+table.dataTable thead th {
+    color: #474256;
+    background-color: #f6f9fc;
+    font-size: 11px;
+    font-weight: 700;
+    border-top: 1px solid #ced2d6;
+    border-bottom: 1px solid #ced2d6;
+    outline: none !important;
+}
+
+.table td,
+table.dataTable tbody td {
+    font-size: 14px;
+    border-color: #ced2d6;
+    color: var(--primary-font-color);
+}
+
+.table .actions a {
+    display: inline-block;
+    margin: 2px;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #666;
+}
+
+.table .actions a:hover {
+    opacity: 0.7;
+}
+
+.table .actions a.delete {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.dataTables_wrapper .dataTables_info {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.card .dataTables_wrapper .dataTables_paginate span .paginate_button {
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 26px;
+    padding: 0;
+    font-size: 12px;
+    margin: 2px;
+    float: left;
+    color: #333;
+}
+
+.card .dataTables_wrapper .dataTables_paginate span .paginate_button.current,
+.card .dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
+    background: #13a1ed;
+    border-color: #13a1ed;
+    color: #fff !important;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+    float: left;
+    font-size: 0;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    margin: 2px;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
+    background: #13a1ed;
+    border-color: #13a1ed;
+    color: #fff !important;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
+    border-color: #ccc !important;
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: none !important;
+    color: #333 !important;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+    float: right;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.next:before {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-size: 14px;
+}
+
+.card .dataTables_wrapper .dataTables_paginate .paginate_button.previous:before {
+    content: "\f053";
+    font-family: "Font Awesome 5 Free";
+    font-size: 14px;
+}
+
+
+/*Header*/
+
+.avatar {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.navbar-vertical .navbar-nav .nav-link {
+    font-weight: 600;
+    color: #525f7f;
+}
+
+body .sidenav {
+    box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+}
+
+.navbar-vertical .navbar-nav .nav-link:hover {
+    color: var(--primary);
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active {
+    color: var(--primary);
+}
+
+.navbar-vertical .navbar-nav .nav-link>i {
+    font-size: 16px;
+    line-height: 1.5rem;
+    width: 20px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+
+/*Login*/
+
+.login-page {
+    min-height: 100vh;
+    background: rgb(18, 168, 238);
+    background: -moz-linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: -webkit-linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    background: linear-gradient(129deg, rgba(18, 168, 238, 1) 0%, rgba(73, 15, 221, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#12a8ee", endColorstr="#490fdd", GradientType=1);
+}
+
+.login-page .card {
+    background: #ecedf5;
+}
+
+
+/*Page*/
+
+.notification {
+    position: relative;
+    padding-left: 40px;
+}
+
+.notification h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.notification h4 span:first-child {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.notification h4 span:last-child {
+    color: #808080;
+    font-weight: 600;
+    font-size: 12px;
+    float: right;
+}
+
+.notification p {
+    margin: 0;
+    font-size: 13px;
+    color: #808080;
+}
+
+.notification .fa {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--secondary);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 100px;
+    font-size: 13px;
+}
+
+
+/*Tab*/
+
+.nav-fill .nav-item,
+.nav-wrapper {
+    padding: 0 !important;
+}
+
+.nav-wrapper {
+    overflow: auto;
+    padding-bottom: 2px;
+}
+
+.nav-fill .nav-item {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.nav-wrapper .nav {
+    display: block;
+    white-space: nowrap;
+    border-bottom: 2px solid #ccc;
+}
+
+.nav-pills .nav-link {
+    background: #fff;
+    color: #333;
+    border-radius: 0px;
+    padding: 13px 25px 10px 25px;
+    box-shadow: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+}
+
+.nav-pills .nav-link .fa {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 18px;
+}
+
+.nav-pills .nav-link.active {
+    background: none;
+    color: var(--primary);
+}
+
+.nav-pills .nav-link.active:after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+}
+
+.card.no-shadow {
+    box-shadow: none;
+}
+
+
+/*Apply Loan*/
+
+.apply-loan {
+    padding-top: 70px;
+}
+
+.apply-loan .form-group {
+    margin-bottom: 12px;
+}
+
+.apply-loan .site-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.site-header img {
+    max-width: 250px;
+}
+
+.apply-loan .card {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.apply-loan .card-body {
+    padding: 20px;
+}
