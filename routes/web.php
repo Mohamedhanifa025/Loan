@@ -2,17 +2,20 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\LoanController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ReferralController;
-use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\ContactsController;
+use App\Http\Controllers\Admin\LoansController;
+use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\Admin\ReferralsController;
+use App\Http\Controllers\Admin\SettingsController;
 
 
 Route::redirect('/', '/login');
 
-Route::redirect('/home', '/admin');
+Route::redirect('/home', '/admin')->name('home');
+
+Route::get('/apply-loan', 'FrontController@applyLoan')->name('apply.loan.view');
+Route::post('/apply-loan-store', 'FrontController@store')->name('apply.loan.store');
 
 Auth::routes(['register' => false]);
 
@@ -34,41 +37,41 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('products/destroy', 'ProductsController@massDestroy')->name('products.massDestroy');
 
     Route::resource('products', 'ProductsController');
-    
+
                 /*----Customer----*/
 
-    Route::delete('customer/destroy', 'CustomerController@massDestroy')->name('customer.massDestroy');
+    Route::delete('customers/destroy', 'CustomersController@massDestroy')->name('customers.massDestroy');
 
-    Route::resource('customer', 'CustomerController');
+    Route::resource('customers', 'CustomersController');
 
                 /*----Contact----*/
 
-    Route::delete('contact/destroy', 'ContactController@massDestroy')->name('contact.massDestroy');
+    Route::delete('contacts/destroy', 'ContactsController@massDestroy')->name('contacts.massDestroy');
 
-    Route::resource('contact', 'ContactController');
+    Route::resource('contacts', 'ContactsController');
 
-                 /*----Loan----*/    
+                 /*----Loan----*/
 
-    Route::delete('loan/destroy', 'LoanController@massDestroy')->name('loan.massDestroy');
+    Route::delete('loans/destroy', 'LoansController@massDestroy')->name('loans.massDestroy');
 
-    Route::resource('loan', 'LoanController');
+    Route::resource('loans', 'LoansController');
 
-                /*----Notification----*/   
+                /*----Notification----*/
 
-    Route::delete('notification/destroy', 'LoanController@massDestroy')->name('notification.massDestroy');
+    Route::delete('notifications/destroy', 'NotificationsController@massDestroy')->name('notifications.massDestroy');
 
-    Route::resource('notification', 'NotificationController');
+    Route::resource('notifications', 'NotificationsController');
 
-                 /*----Referral----*/  
+                 /*----Referral----*/
 
-    Route::delete('referral/destroy', 'ReferralController@massDestroy')->name('referral.massDestroy');
+    Route::delete('referrals/destroy', 'ReferralsController@massDestroy')->name('referrals.massDestroy');
 
-    Route::resource('referral', 'ReferralController');
+    Route::resource('referrals', 'ReferralsController');
 
-                /*----Setting----*/ 
+                /*----Setting----*/
 
-    Route::delete('setting/destroy', 'SettingController@massDestroy')->name('setting.massDestroy');
+    Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
 
-    Route::resource('setting', 'SettingController');
+    Route::resource('settings', 'SettingsController');
 
 });

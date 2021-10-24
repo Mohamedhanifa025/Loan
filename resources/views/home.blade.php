@@ -17,7 +17,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">Total Contacts</h5>
-                                        <span class="h2 font-weight-bold mb-0">10,000</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $total_contacts }}</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 mb-0 text-sm">
-                                    <a href="contacts" class="link">See All<i class="fa fa-chevron-right"></i></a>
+                                    <a href="{{ route('admin.contacts.index') }}" class="link">See All<i class="fa fa-chevron-right"></i></a>
                                 </p>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">Total Employees</h5>
-                                        <span class="h2 font-weight-bold mb-0">10</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $total_employees }}</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 mb-0 text-sm">
-                                    <a href="employees" class="link">See All<i class="fa fa-chevron-right"></i></a>
+                                    <a href="{{ route('admin.users.index') }}" class="link">See All<i class="fa fa-chevron-right"></i></a>
                                 </p>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">Total Customers</h5>
-                                        <span class="h2 font-weight-bold mb-0">500</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $total_customers }}</span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 mb-0 text-sm">
-                                    <a href="customers" class="link">See All<i class="fa fa-chevron-right"></i></a>
+                                    <a href="{{ route('admin.customers.index') }}" class="link">See All<i class="fa fa-chevron-right"></i></a>
                                 </p>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <h3 class="mb-0 h3">New Customers</h3>
                             </div>
                             <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                                <a href="{{ route('admin.customers.index') }}" class="btn btn-sm btn-primary">See all</a>
                             </div>
                         </div>
                     </div>
@@ -103,56 +103,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
-                            <tr>
-                                <td>Arun Kumar</td>
-                                <td>+91 9876543210</td>
-                                <td>03/02/2021</td>
-                            </tr>
+                            @if(count($recent_customers))
+                            @foreach($recent_customers as $customer)
+                                <tr>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->mobile_number }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($customer->created_at)) }}</td>
+                                </tr>
+                            @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="3" class="text-center">No Records Found!</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -166,7 +129,7 @@
                                 <h3 class="h3 mb-0">Notifications</h3>
                             </div>
                             <div class="col text-right">
-                                <a href="notifications" class="btn btn-sm btn-primary">See all</a>
+                                <a href="{{ route('admin.notifications.index') }}" class="btn btn-sm btn-primary">See all</a>
                             </div>
                         </div>
                     </div>
@@ -179,69 +142,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Tamilvanan</span> <span>2 hrs ago</span></h4>
-                                        <p>Imported 200 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Arun Kumar</span> <span>5 hrs ago</span></h4>
-                                        <p>Deleted 15 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Tamilvanan</span> <span>2 hrs ago</span></h4>
-                                        <p>Imported 200 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Arun Kumar</span> <span>5 hrs ago</span></h4>
-                                        <p>Deleted 15 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Tamilvanan</span> <span>2 hrs ago</span></h4>
-                                        <p>Imported 200 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Arun Kumar</span> <span>5 hrs ago</span></h4>
-                                        <p>Deleted 15 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="notification">
-                                        <i class="fa fa-user"></i>
-                                        <h4><span>Tamilvanan</span> <span>2 hrs ago</span></h4>
-                                        <p>Imported 200 contacts</p>
-                                    </div>
-                                </td>
-                            </tr>
+                            @if(count($recent_notifications))
+                                @foreach($recent_notifications as $notification)
+                                    <tr>
+                                        <td>
+                                            <div class="notification">
+                                                <i class="fa fa-user"></i>
+                                                <h4><span>{{ $notification->user->name }}</span> <span>{{ $notification->created_at->diffForHumans() }}</span></h4>
+                                                <p>{{ $notification->title }}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="3" class="text-center">No Records Found!</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>

@@ -6,16 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
 use App\Role;
 use App\User;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         abort_unless(\Gate::allows('user_access'), 403);
 
-        $users = User::all();
+        $users = new User;
+
+        if($request->has('term') && $request->term != '') {
+            $users = $users->where('name', 'LIKE', "%$request->term%")
+                ->where('email', 'LIKE', "%$request->term%")
+                ->where('mobile_number', 'LIKE', "%$request->term%");
+        }
+
+        if($request->has('status') && $request->status != '') {
+            $users = $users->where('status', $request->status);
+        }
+
+        $users = $users->get();
 
         return view('admin.users.index', compact('users'));
     }

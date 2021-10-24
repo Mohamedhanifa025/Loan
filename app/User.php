@@ -37,6 +37,8 @@ class User extends Authenticatable
         'email_verified_at',
     ];
 
+    protected $appends = ['employee_id'];
+
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
@@ -52,6 +54,16 @@ class User extends Authenticatable
         if ($input) {
             $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
         }
+    }
+
+    public function getEmployeeIdAttribute()
+    {
+        return 'EMP'.(strlen($this->id) == 1?0:'').($this->id);
+    }
+
+    public function getStatusTextAttribute()
+    {
+        return $this->status == 1?'Active':'InActive';
     }
 
     public function sendPasswordResetNotification($token)
