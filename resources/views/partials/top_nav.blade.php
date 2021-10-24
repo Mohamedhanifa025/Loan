@@ -22,7 +22,7 @@
                             <i class="fa fa-user"></i>
                         </span>
                             <div class="media-body  ml-2  d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">Hi, Arunkumar</span>
+                                <span class="mb-0 text-sm  font-weight-bold">Hi, {{ auth()->user()->name }}</span>
                             </div>
                         </div>
                     </a>
@@ -38,18 +38,18 @@
                             <i class="fa fa-lock"></i>
                             <span>Change Password</span>
                         </a>
-                        <a href="settings" class="dropdown-item">
+                        {{--<a href="settings" class="dropdown-item">
                             <i class="ni ni-settings-gear-65"></i>
                             <span>Settings</span>
                         </a>
                         <a href="notifications" class="dropdown-item">
                             <i class="fa fa-bell"></i>
                             <span>Notifications</span>
-                        </a>
+                        </a>--}}
                         <div class="dropdown-divider"></div>
-                        <a href="index" class="dropdown-item">
+                        <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                             <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
+                            <span>{{ trans('global.logout') }}</span>
                         </a>
                     </div>
                 </li>
