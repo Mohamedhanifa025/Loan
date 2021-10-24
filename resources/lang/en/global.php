@@ -104,6 +104,7 @@ return [
     'user'                                 => [
         'title'          => 'Employees',
         'title_singular' => 'Employee',
+        'my_profile'     => 'My Profile',
         'fields'         => [
             'id'                       => 'ID',
             'id_helper'                => '',
@@ -375,6 +376,8 @@ return [
             'mobile_number_helper'            => '',
             'email'                   => 'Email',
             'email_helper'            => '',
+            'password'                => 'Password',
+            'password_helper'        => '',
             'address'                   => 'Address',
             'address_helper'            => '',
             'city'                   => 'City',

@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.customer.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.customers.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('global.customer.fields.name') }}*</label>
@@ -45,8 +45,20 @@
                     {{ trans('global.customer.fields.email_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <label for="address">{{ trans('global.customer.fields.password') }}</label>
+                <input type="text" id="password" name="password" class="form-control" value="{{ old('password', isset($customer) ? $customer->password : '') }}">
+                @if($errors->has('password'))
+                    <p class="help-block">
+                        {{ $errors->first('password') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('global.customer.fields.password_helper') }}
+                </p>
+            </div>
             <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-                <label for="address">{{ trans('global.customer.fields.email') }}</label>
+                <label for="address">{{ trans('global.customer.fields.address') }}</label>
                 <input type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($customer) ? $customer->address : '') }}">
                 @if($errors->has('address'))
                     <p class="help-block">
@@ -71,7 +83,7 @@
             </div>
             <div class="form-group {{ $errors->has('pincode') ? 'has-error' : '' }}">
                 <label for="pincode">{{ trans('global.customer.fields.pincode') }}</label>
-                <input type="text" id="pincode" name="pincode" class="form-control" value="{{ old('pincode', isset($customer) ? $customer->pincode : '') }}">
+                <input type="text" id="number" min="6" max="10" name="pincode" class="form-control" value="{{ old('pincode', isset($customer) ? $customer->pincode : '') }}">
                 @if($errors->has('pincode'))
                     <p class="help-block">
                         {{ $errors->first('pincode') }}
