@@ -23,19 +23,25 @@
     <!-- Page content -->
     <div class="container-fluid mt--9">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success co-md-12">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div class="col-xl-12">
                 <div class="card animated fadeInUp">
                     <div class="card-header border-0">
                         <form action="" method="GET">
                         <div class="row align-items-center">
                                 <div class="col-md-5 mb-3 mb-md-0">
-                                <input type="text" id="table-search" name="term" class="form-control" {{ request()->input('term') }} placeholder="Search Name, Number...">
+                                <input type="text" id="table-search" name="term" class="form-control" value="{{ request()->input('term') }}" placeholder="Search Name, Number...">
                             </div>
                                 <div class="col-md-3">
                                 <select class="form-control" name="status">
                                     <option value="">All Status</option>
-                                    <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Approved</option>
-                                    <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>Rejected</option>
+                                    <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Active</option>
+                                    <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>InActive</option>
                                 </select>
                             </div>
                                 <div class="col-md-3">
@@ -89,7 +95,7 @@
                                             <a class="edit" href="{{ route('admin.customers.edit', $customer->id) }}"><i class="fa fa-pen"></i></a>
                                         @endcan
                                         @can('customer_delete')
-                                            <a class="delete" data-toggle="modal" data-target="#delete-form" data-id="{{ $customer->id }}"><i class="fa fa-trash-alt"></i></a>
+                                            <a class="delete" data-id="{{ $customer->id }}"><i class="fa fa-trash-alt"></i></a>
                                         @endcan
                                     </td>
 
@@ -306,8 +312,9 @@
 @parent
 <script>
     $(function () {
-        $('#delete-form').on('shown.bs.modal', function (e) {
-            var id = $('.delete').data('id');
+        $('.delete').on('click', function (e) {
+            $('#delete-form').modal('show');
+            var id = $(this).data('id');
             let url = "{{ route('admin.customers.destroy', '') }}";
             $('.delete-popup').attr('action', url + '/' + id);
         });

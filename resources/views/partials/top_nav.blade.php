@@ -30,11 +30,11 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="edit-profile" class="dropdown-item">
+                        <a href="{{ route("admin.users.edit", auth()->user()->id) }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>Edit Profile</span>
                         </a>
-                        <a href="change-password" class="dropdown-item">
+                        <a href="{{ route('admin.users.change.password') }}" class="dropdown-item">
                             <i class="fa fa-lock"></i>
                             <span>Change Password</span>
                         </a>

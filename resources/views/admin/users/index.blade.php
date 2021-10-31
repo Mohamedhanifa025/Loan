@@ -23,6 +23,12 @@
     <!-- Page content -->
     <div class="container-fluid mt--9">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success co-md-12">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div class="col-xl-12">
                 <div class="card animated fadeInUp">
                     <div class="card-header border-0">
@@ -34,8 +40,8 @@
                                 <div class="col-md-3">
                                     <select class="form-control" name="status">
                                         <option value="">All Status</option>
-                                        <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Approved</option>
-                                        <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>Rejected</option>
+                                        <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Active</option>
+                                        <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>InActive</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -85,7 +91,7 @@
                                             <a class="edit" href="{{ route('admin.users.edit', $user->id) }}"><i class="fa fa-pen"></i></a>
                                         @endcan
                                         @can('user_delete')
-                                            <a class="delete" data-toggle="modal" data-target="#delete-form" data-id="{{ $user->id }}"><i class="fa fa-trash-alt"></i></a>
+                                            <a class="delete" data-id="{{ $user->id }}"><i class="fa fa-trash-alt"></i></a>
                                         @endcan
                                     </td>
 
@@ -375,8 +381,9 @@
 @parent
 <script>
     $(function () {
-        $('#delete-form').on('shown.bs.modal', function (e) {
-            var id = $('.delete').data('id');
+        $('.delete').on('click', function (e) {
+            $('#delete-form').modal('show');
+            var id = $(this).data('id');
             let url = "{{ route('admin.users.destroy', '') }}";
             $('.delete-popup').attr('action', url + '/' + id);
         });

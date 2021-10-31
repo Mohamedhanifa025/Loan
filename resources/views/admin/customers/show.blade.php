@@ -2,10 +2,14 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('global.customer.title') }}
+    <div class="card-header row">
+        <div class="col-md-8 pt-2">{{ trans('global.show') }} {{ trans('global.customer.title') }}</div>
+        <div class="col-md-4 breadcrumb float-right mb-0">
+            <a class="breadcrumb-item" href="{{ route('home') }}">{{ trans('global.home') }}</a>
+            <a class="breadcrumb-item"href="{{ route('admin.contacts.index') }}">{{ trans('global.customer.title') }}</a>
+            <span class="breadcrumb-item">{{ trans('global.customer.title') }} #{{ $customer->id }}</span>
+        </div>
     </div>
-
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>

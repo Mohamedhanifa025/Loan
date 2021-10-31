@@ -18,6 +18,12 @@
             <div class="col-md-8 offset-2">
                 <div class="card animated fadeInUp">
                     <div class="nav-wrapper">
+                        @if(session('success'))
+                            <div class="alert alert-success co-md-12">{{ session('success') }}</div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
                         <ul class="nav nav-pills nav-fill">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tab1" aria-selected="true">
@@ -50,7 +56,7 @@
                                                 <input type="hidden" name="type" value="smtp">
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="smtp_host">{{ trans('global.setting.fields.smtp_host') }}*</label>
-                                                    <input type="text" id="smtp_host" name="smtp_host" class="form-control" value="{{ old('smtp_host', isset($setting) ? $setting->smtp_host : '') }}">
+                                                    <input type="text" id="smtp_host" name="smtp_host" class="form-control" value="{{ $settings['smtp_host'] }}">
                                                     @if($errors->has('smtp_host'))
                                                         <p class="help-block">
                                                             {{ $errors->first('smtp_host') }}
@@ -62,7 +68,7 @@
                                                 </div>
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="smtp_host">{{ trans('global.setting.fields.smtp_port') }}*</label>
-                                                    <input type="text" id="smtp_port" name="smtp_port" class="form-control" value="{{ old('smtp_port', isset($setting) ? $setting->smtp_port : '') }}">
+                                                    <input type="text" id="smtp_port" name="smtp_port" class="form-control" value="{{ $settings['smtp_port'] }}">
                                                     @if($errors->has('smtp_port'))
                                                         <p class="help-block">
                                                             {{ $errors->first('smtp_port') }}
@@ -74,7 +80,7 @@
                                                 </div>
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="smtp_username">{{ trans('global.setting.fields.smtp_username') }}*</label>
-                                                    <input type="text" id="smtp_username" name="smtp_username" class="form-control" value="{{ old('smtp_username', isset($setting) ? $setting->smtp_username : '') }}">
+                                                    <input type="text" id="smtp_username" name="smtp_username" class="form-control" value="{{ $settings['smtp_username'] }}">
                                                     @if($errors->has('smtp_username'))
                                                         <p class="help-block">
                                                             {{ $errors->first('smtp_username') }}
@@ -86,7 +92,7 @@
                                                 </div>
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="smtp_password">{{ trans('global.setting.fields.smtp_password') }}*</label>
-                                                    <input type="text" id="smtp_password" name="smtp_password" class="form-control" value="{{ old('smtp_password', isset($setting) ? $setting->smtp_password : '') }}">
+                                                    <input type="text" id="smtp_password" name="smtp_password" class="form-control" value="{{ $settings['smtp_password'] }}">
                                                     @if($errors->has('smtp_password'))
                                                         <p class="help-block">
                                                             {{ $errors->first('smtp_password') }}
@@ -114,7 +120,7 @@
                                                 <input type="hidden" name="type" value="app">
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="app_id">{{ trans('global.setting.fields.app_id') }}*</label>
-                                                    <input type="text" id="app_id" name="app_id" class="form-control" value="{{ old('app_id', isset($setting) ? $setting->app_id : '') }}">
+                                                    <input type="text" id="app_id" name="app_id" class="form-control" value="{{ $settings['app_id'] }}">
                                                     @if($errors->has('app_id'))
                                                         <p class="help-block">
                                                             {{ $errors->first('app_id') }}
@@ -126,7 +132,7 @@
                                                 </div>
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="app_secret">{{ trans('global.setting.fields.app_secret') }}*</label>
-                                                    <input type="text" id="app_secret" name="app_secret" class="form-control" value="{{ old('app_secret', isset($setting) ? $setting->app_secret : '') }}">
+                                                    <input type="text" id="app_secret" name="app_secret" class="form-control" value="{{ $settings['app_secret'] }}">
                                                     @if($errors->has('app_secret'))
                                                         <p class="help-block">
                                                             {{ $errors->first('app_secret') }}
@@ -154,7 +160,7 @@
                                                 <input type="hidden" name="type" value="rewards">
                                                 <div class="form-group {{ $errors->has('type') ? 'has-error' : '' }}">
                                                     <label for="rewards_value">{{ trans('global.setting.fields.reward_value') }}*</label>
-                                                    <input type="text" id="rewards_value" name="reward_value" class="form-control" value="{{ old('reward_value', isset($setting) ? $setting->reward_value : '') }}">
+                                                    <input type="text" id="rewards_value" name="reward_value" class="form-control" value="{{ $settings['reward_value'] }}">
                                                     @if($errors->has('reward_value'))
                                                         <p class="help-block">
                                                             {{ $errors->first('reward_value') }}

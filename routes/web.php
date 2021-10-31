@@ -32,6 +32,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
 
+    Route::put('users/update-profile/{id}', 'UsersController@updateProfile')->name('users.update.profile');
+
+    Route::get('users/change-password', 'UsersController@changePassword')->name('users.change.password');
+
+    Route::put('users/update-password', 'UsersController@updatePassword')->name('users.update.password');
+
     Route::resource('users', 'UsersController');
 
     Route::delete('products/destroy', 'ProductsController@massDestroy')->name('products.massDestroy');
@@ -73,5 +79,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
 
     Route::resource('settings', 'SettingsController');
+
+    Route::post('import', 'ContactsController@import')->name('import');
 
 });

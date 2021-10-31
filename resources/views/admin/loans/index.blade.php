@@ -29,13 +29,13 @@
                         <form action="" method="GET">
                             <div class="row align-items-center">
                                 <div class="col-md-5 mb-3 mb-md-0">
-                                    <input type="text" id="table-search" name="term" class="form-control" {{ request()->input('term') }} placeholder="Search Name, Number...">
+                                    <input type="text" id="table-search" name="term" class="form-control" value="{{ request()->input('term') }}" placeholder="Search Name, Number...">
                                 </div>
                                 <div class="col-md-3">
                                     <select class="form-control" name="status">
                                         <option value="">All Status</option>
-                                        <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Approved</option>
-                                        <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>Rejected</option>
+                                        <option value="1" {{ (isset(request()->status) && request()->status == 1)?'selected="selected"':'' }}>Active</option>
+                                        <option value="0" {{ (isset(request()->status) && request()->status == 0)?'selected="selected"':'' }}>InActive</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">

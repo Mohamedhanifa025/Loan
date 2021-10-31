@@ -8,9 +8,27 @@ use Illuminate\Http\Request;
 
 class LoansController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-      $loans = ApplyLoan::all();
+      $loans = new ApplyLoan;
+
+      if ($request->has('term') && $request->term != '') {
+          $loans = $loans->where(function ($q) use($request) {
+              $l = $q->where('name', 'LIKE', "%$request->term%")
+                  ->orWhere('email', 'LIKE', "%$request->term%")
+                  ->orWhere('mobile_number', 'LIKE', "%$request->term%");
+              $types = array_flip(config('constant.loan_types'));
+              if(array_key_exists($request->term, $types)) {
+                  $l = $l->
+                  orWhere('type', $types);
+              }
+          });
+      }
+      if ($request->has('status') && $request->status != '') {
+          $loans = $loans->where('status', $request->status);
+      }
+      $loans = $loans->get();
+
     return view('admin.loans.index' , compact('loans'));
   }
   public function create()

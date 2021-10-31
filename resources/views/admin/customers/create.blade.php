@@ -7,6 +7,12 @@
     </div>
 
     <div class="card-body">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
         <form action="{{ route("admin.customers.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -95,7 +101,12 @@
             </div>
             <div class="form-group {{ $errors->has('referred_by') ? 'has-error' : '' }}">
                 <label for="referred_by">{{ trans('global.customer.fields.referred_by') }}</label>
-                <input type="text" id="referred_by" name="referred_by" class="form-control" value="{{ old('referred_by', isset($customer) ? $customer->referred_by : '') }}">
+                <select name="referred_by" id="referred_by" class="form-control">
+                    <option value="">--select--</option>
+                    @foreach($customers as $cust)
+                        <option value="{{ $cust->id }}">{{ $cust->name }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('referred_by'))
                     <p class="help-block">
                         {{ $errors->first('referred_by') }}
@@ -107,7 +118,10 @@
             </div>
             <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
                 <label for="status">{{ trans('global.customer.fields.status') }}</label>
-                <input type="text" id="status" name="status" class="form-control" value="{{ old('status', isset($customer) ? $customer->status : '') }}">
+                <select name="status" id="status" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">InActive</option>
+                </select>
                 @if($errors->has('status'))
                     <p class="help-block">
                         {{ $errors->first('status') }}

@@ -93,7 +93,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="edit-profile">
+                        <a class="nav-link" href="{{ route("admin.users.edit", auth()->user()->id) }}">
                             <i class="fa fa-user"></i>
                             <span class="nav-link-text">{{ trans('global.user.my_profile') }}</span>
                         </a>

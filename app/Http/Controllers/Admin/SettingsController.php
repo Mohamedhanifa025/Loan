@@ -10,7 +10,11 @@ class SettingsController extends Controller
 {
   public function index()
   {
-      $settings = Setting::all();
+      $settingsRecord = Setting::all();
+      $settings = array();
+      foreach ($settingsRecord as $record) {
+              $settings[$record['key']] = $record['value'];
+      }
     return view('admin.settings.index' , compact('settings'));
   }
   public function create()
@@ -44,7 +48,7 @@ class SettingsController extends Controller
           }
       }
 
-      return redirect()->route('admin.settings.index');
+      return redirect()->route('admin.settings.index')->with('success', 'Settings updated successfully!');
   }
 
   public function edit(Customer $customer)

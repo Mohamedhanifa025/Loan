@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->text('address');
             $table->string('city',20);
             $table->integer('pincode');
-            $table->unsignedInteger('referred_by');
+            $table->unsignedInteger('referred_by')->nullable();
             $table->foreign('referred_by')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('status');
             $table->timestamps();

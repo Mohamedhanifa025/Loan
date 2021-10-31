@@ -416,6 +416,8 @@ return [
             'mobile_number_helper'            => '',
             'customer'                   => 'Customer',
             'customer_helper'            => '',
+            'employee'                   => 'Employee',
+            'employee_helper'            => '',
             'description'        => 'Description',
             'description_helper' => '',
             'price'              => 'Price',

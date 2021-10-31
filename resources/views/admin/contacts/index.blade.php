@@ -24,13 +24,19 @@
     <!-- Page content -->
     <div class="container-fluid mt--9">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success co-md-12">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div class="col-xl-12">
                 <div class="card animated fadeInUp">
                     <div class="card-header border-0">
                         <form action="" method="GET">
                             <div class="row align-items-center">
                                 <div class="col-md-5 mb-3 mb-md-0">
-                                    <input type="text" id="table-search" name="term" class="form-control" {{ request()->input('term') }} placeholder="Search Name, Number...">
+                                    <input type="text" id="table-search" name="term" class="form-control" value="{{ request()->input('term') }}" placeholder="Search Name, Number...">
                                 </div>
                                 <div class="col-md-3">
                                     <select class="form-control" name="employee_id">
@@ -52,6 +58,7 @@
                             <tr>
                                 <th scope="col" data-orderable="false">{{ trans('global.contact.fields.name') }}</th>
                                 <th scope="col" data-orderable="false">{{ trans('global.contact.fields.mobile_number') }}</th>
+                                <th scope="col" data-orderable="false">{{ trans('global.contact.fields.employee') }}</th>
                                 <th scope="col" data-orderable="false">{{ trans('global.contact.fields.customer') }}</th>
                                 <th scope="col" class="text-center" data-orderable="false">{{ trans('global.actions') }}</th>
                             </tr>
@@ -60,19 +67,16 @@
                             @foreach($contacts as $key => $contact)
                                 <tr data-entry-id="{{ $contact->id }}">
                                     <td>
-                                        {{ $contact->employee_id }}
-                                    </td>
-                                    <td>
                                         {{ $contact->name ?? '' }}
-                                    </td>
-                                    <td>
-                                        {{ $contact->email ?? '' }}
                                     </td>
                                     <td>
                                         {{ $contact->mobile_number ?? '' }}
                                     </td>
-                                    <td class="font-weight-bold text-center">
-                                        <span class="py-1 text-uppercase px-2 rounded small {{ $contact->status == 1 ? 'bg-success':'bg-danger' }} text-white">{{ $contact->status_text ?? '' }}</span>
+                                    <td>
+                                        {{ $contact->user_name }}
+                                    </td>
+                                    <td>
+                                        {{ $contact->customer_name }}
                                     </td>
                                     <td class="actions text-center">
                                         {{--<a href="view-contact" class="edit"><i class="fa fa-eye"></i></a>
@@ -85,7 +89,7 @@
                                             <a class="edit" href="{{ route('admin.contacts.edit', $contact->id) }}"><i class="fa fa-pen"></i></a>
                                         @endcan
                                         @can('contact_delete')
-                                            <a class="delete" data-toggle="modal" data-target="#delete-form" data-id="{{ $contact->id }}"><i class="fa fa-trash-alt"></i></a>
+                                            <a class="delete" data-id="{{ $contact->id }}"><i class="fa fa-trash-alt"></i></a>
                                         @endcan
                                     </td>
 
@@ -111,17 +115,18 @@
                                 <div class="text-muted mb-4">
                                     <h3>Bulk Import</h3>
                                     <p class="mb-0">Upload format should be (.csv, .xls)</p>
-                                    <p>Download sample format <a href="#!">Click here</a></p>
+                                    <p>Download sample format <a href="{{ asset('import/Import_Contacts_Sample.xlsx') }}" download>Click here</a></p>
                                 </div>
-                                <form role="form">
+                                <form action="{{ route('admin.import') }}" method="POST" role="form" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group mb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                                            <input type="file" class="custom-file-input" id="customFileLang" name="file" lang="en">
                                             <label class="custom-file-label" for="customFileLang">Select file</label>
                                         </div>
                                     </div>
                                     <div class="text-center pb-lg-3">
-                                        <button type="button" class="btn btn-primary btn-block my-3">Import Contacts</button>
+                                        <button type="submit" class="btn btn-primary btn-block my-3">Import Contacts</button>
                                     </div>
                                 </form>
                             </div>
@@ -230,8 +235,9 @@
     @parent
     <script>
         $(function () {
-            $('#delete-form').on('shown.bs.modal', function (e) {
-                var id = $('.delete').data('id');
+            $('.delete').on('click', function (e) {
+                $('#delete-form').modal('show');
+                var id = $(this).data('id');
                 let url = "{{ route('admin.contacts.destroy', '') }}";
                 $('.delete-popup').attr('action', url + '/' + id);
             });

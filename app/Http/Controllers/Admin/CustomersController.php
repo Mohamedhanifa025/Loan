@@ -14,8 +14,8 @@ class CustomersController extends Controller
 
         if($request->has('term') && $request->term != '') {
             $customers = $customers->where('name', 'LIKE', "%$request->term%")
-            ->where('email', 'LIKE', "%$request->term%")
-            ->where('mobile_number', 'LIKE', "%$request->term%");
+            ->orWhere('email', 'LIKE', "%$request->term%")
+            ->orWhere('mobile_number', 'LIKE', "%$request->term%");
         }
 
         if($request->has('status') && $request->status != '') {
@@ -29,8 +29,8 @@ class CustomersController extends Controller
     public function create()
     {
         abort_unless(\Gate::allows('customer_create'), 403);
-
-        return view('admin.customers.create');
+        $customers = Customer::orderBy('name', 'asc')->get();
+        return view('admin.customers.create', compact('customers'));
     }
 
     public function store(Request $request)
@@ -38,14 +38,14 @@ class CustomersController extends Controller
 
         $customer = Customer::create($request->all());
 
-        return redirect()->route('admin.customers.index');
+        return redirect()->route('admin.customers.index')->with('success', 'Customer created successfully!');
     }
 
     public function edit(Customer $customer)
     {
         abort_unless(\Gate::allows('customer_edit'), 403);
-
-        return view('admin.customers.edit', compact('customer'));
+        $customers = Customer::orderBy('name', 'asc')->get();
+        return view('admin.customers.edit', compact('customer', 'customers'));
     }
 
     public function update(Request $request, Customer $customer)

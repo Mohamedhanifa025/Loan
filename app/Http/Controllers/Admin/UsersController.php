@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Role;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -20,8 +21,10 @@ class UsersController extends Controller
 
         if($request->has('term') && $request->term != '') {
             $users = $users->where('name', 'LIKE', "%$request->term%")
-                ->where('email', 'LIKE', "%$request->term%")
-                ->where('mobile_number', 'LIKE', "%$request->term%");
+                ->orWhere('email', 'LIKE', "%$request->term%")
+                ->orWhere('id', str_replace('emp', '',strtolower($request->term)))
+                ->orWhere('id', str_replace('emp0', '',strtolower($request->term)))
+                ->orWhere('mobile_number', 'LIKE', "%$request->term%");
         }
 
         if($request->has('status') && $request->status != '') {
@@ -59,8 +62,11 @@ class UsersController extends Controller
         $roles = Role::all()->pluck('title', 'id');
 
         $user->load('roles');
-
-        return view('admin.users.edit', compact('roles', 'user'));
+        $authUser = false;
+        if(($user->id == Auth::user()->id)) {
+            $authUser = true;
+        }
+        return view(($authUser)?'admin.users.edit_profile':'admin.users.edit', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -70,7 +76,16 @@ class UsersController extends Controller
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success', "Employee info successfully!");
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        abort_unless(\Gate::allows('user_edit'), 403);
+        $user = User::find($id);
+        $user->update($request->all());
+
+        return redirect()->back()->with('success', "Profile updated successfully!");
     }
 
     public function show(User $user)
@@ -96,5 +111,46 @@ class UsersController extends Controller
         User::whereIn('id', request('ids'))->delete();
 
         return response(null, 204);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        abort_unless(\Gate::allows('user_edit'), 403);
+
+        $this->validate($request, [
+
+            'old_password' => 'required',
+            'password' => 'required',
+            'retype_password' => 'required',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        $hashedPassword = $user->password;
+
+        if (\Hash::check($request->old_password , $hashedPassword )) {
+
+            if($request->password != $request->retype_password) {
+                return redirect()->back()->with('error','Your password confirmation does not match!');
+            }
+            if (!\Hash::check($request->password , $hashedPassword)) {
+
+                $user->password = bcrypt($request->password);
+                $user->save();
+
+                return redirect()->back()->with('success','Password updated successfully');
+            } else {
+                return redirect()->back()->with('error','New password can not be the old password!');
+            }
+        } else {
+            return redirect()->back()->with('error','Old password doesnt matched!');
+        }
+    }
+
+    public function changePassword(User $user)
+    {
+        abort_unless(\Gate::allows('user_show'), 403);
+
+        return view('admin.users.change_password');
     }
 }

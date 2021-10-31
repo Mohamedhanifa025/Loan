@@ -35,6 +35,8 @@ class User extends Authenticatable
         'deleted_at',
         'remember_token',
         'email_verified_at',
+        'status',
+        'mobile_number'
     ];
 
     protected $appends = ['employee_id'];

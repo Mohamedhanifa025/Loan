@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ContactImport;
 use App\User;
 use Illuminate\Http\Request;
 use App\Contacts;
+use Excel;
 
 class ContactsController extends Controller
 {
@@ -15,12 +17,14 @@ class ContactsController extends Controller
         $contacts = new Contacts;
 
         if($request->has('term') && $request->term != '') {
-            $contacts = $contacts->where('name', 'LIKE', "%$request->term%")
-                ->where('mobile_number', 'LIKE', "%$request->term%");
+            $contacts = $contacts->where(function ($q) use($request) {
+                $q->where('name', 'LIKE', "%$request->term%")
+                    ->orWhere('mobile_number', 'LIKE', "%$request->term%");
+            });
         }
 
         if($request->has('employee_id') && $request->employee_id != '') {
-            $contacts = $contacts->where('customer_id', $request->employee_id);
+            $contacts = $contacts->where('user_id', $request->employee_id);
         }
 
         $contacts = $contacts->get();
@@ -38,7 +42,7 @@ class ContactsController extends Controller
 
     public function store(Request $request)
     {
-
+        $request->merge(['user_id' => auth()->user()->id]);
         $contact = Contacts::create($request->all());
 
         return redirect()->route('admin.contacts.index');
@@ -81,5 +85,15 @@ class ContactsController extends Controller
         Contacts::whereIn('id', request('ids'))->delete();
 
         return response(null, 204);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function import()
+    {
+        Excel::import(new ContactImport(),request()->file('file'));
+
+        return back()->with('success', 'Contacts imported successfully!');
     }
 }

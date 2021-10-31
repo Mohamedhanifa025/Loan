@@ -47,9 +47,10 @@
             </div>
             <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
                 <label for="roles">{{ trans('global.user.fields.roles') }}*
-                    <span class="btn btn-info btn-xs select-all">Select all</span>
-                    <span class="btn btn-info btn-xs deselect-all">Deselect all</span></label>
-                <select name="roles[]" id="roles" class="form-control select2" multiple="multiple">
+                    {{--<span class="btn btn-info btn-xs select-all">Select all</span>
+                    <span class="btn btn-info btn-xs deselect-all">Deselect all</span>--}}
+                </label>
+                <select name="roles[]" id="roles" class="form-control">
                     @foreach($roles as $id => $roles)
                         <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>
                             {{ $roles }}
@@ -63,6 +64,21 @@
                 @endif
                 <p class="helper-block">
                     {{ trans('global.user.fields.roles_helper') }}
+                </p>
+            </div>
+            <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                <label for="status">{{ trans('global.customer.fields.status') }}</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">InActive</option>
+                </select>
+                @if($errors->has('status'))
+                    <p class="help-block">
+                        {{ $errors->first('status') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('global.customer.fields.status_helper') }}
                 </p>
             </div>
             <div>
