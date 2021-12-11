@@ -42,6 +42,10 @@ class ContactsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+           ]);
         $request->merge(['user_id' => auth()->user()->id]);
         $contact = Contacts::create($request->all());
 
@@ -58,7 +62,10 @@ class ContactsController extends Controller
     public function update(Request $request, Contacts $contact)
     {
         abort_unless(\Gate::allows('contact_edit'), 403);
-
+        $request->validate([
+            'name' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+        ]);
         $contact->update($request->all());
 
         return redirect()->route('admin.contacts.index');

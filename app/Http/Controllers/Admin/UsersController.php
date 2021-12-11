@@ -48,7 +48,11 @@ class UsersController extends Controller
     public function store(StoreUserRequest $request)
     {
         abort_unless(\Gate::allows('user_create'), 403);
-
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+        ]);
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -72,7 +76,11 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         abort_unless(\Gate::allows('user_edit'), 403);
-
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+        ]);
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -82,6 +90,11 @@ class UsersController extends Controller
     public function updateProfile(Request $request, $id)
     {
         abort_unless(\Gate::allows('user_edit'), 403);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+        ]);
         $user = User::find($id);
         $user->update($request->all());
 

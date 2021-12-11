@@ -59,7 +59,7 @@ class LoansController extends Controller
 
       $loan->update($request->all());
 
-      return redirect()->route('admin.loans.index');
+      return redirect()->route('admin.loans.index')->with('success', 'Loan application updated successfully!');
   }
 
   public function show(ApplyLoan $loan)

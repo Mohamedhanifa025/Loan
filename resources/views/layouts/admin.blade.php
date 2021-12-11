@@ -122,6 +122,15 @@
             $(".nav-dropdown-toggle").dropdown();
         });*/
         $(function() {
+            $("#loan-type").change(function(){
+                $(this).find("option:selected").each(function(){
+                    var optionValue = $(this).attr("value");
+                    if(optionValue){
+                        $(".loans-div").not("#" + optionValue).hide();
+                        $("#" + optionValue).show();
+                    }
+                });
+            }).change();
   /*let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
   let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
   let excelButtonTrans = '{{ trans('global.datatables.excel') }}'

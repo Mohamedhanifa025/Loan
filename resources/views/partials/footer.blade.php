@@ -3,7 +3,7 @@
     <div class="row mx-0 align-items-center justify-content-lg-between">
         <div class="col-lg-12">
             <div class="copyright text-center">
-                &copy; 2020 Loanzspot All Rights Reserved.
+                &copy; {{ date('Y') }} Loanzspot All Rights Reserved.
             </div>
         </div>
     </div>

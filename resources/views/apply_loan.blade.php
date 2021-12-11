@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Take Home Salary</label>
-                        <input type="number" placeholder="100.00" step="0.01" min="0" max="10" class="form-control {{ $errors->has('salary') ? ' is-invalid' : '' }}" name="salary" placeholder="Enter your salary">
+                        <input type="tel" placeholder="50000" maxlength="10" class="form-control {{ $errors->has('salary') ? ' is-invalid' : '' }}" name="salary" placeholder="Enter your salary">
                         @if ($errors->has('salary'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('salary') }}</strong>
@@ -303,7 +303,7 @@
     <div class="row mx-0 align-items-center justify-content-lg-between">
         <div class="col-lg-12">
             <div class="copyright text-center">
-                &copy; 2020 Loanzspot All Rights Reserved.
+                &copy; {{ date('Y') }} Loanzspot All Rights Reserved.
             </div>
         </div>
     </div>

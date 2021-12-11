@@ -35,7 +35,15 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
-
+        $request->validate([
+           'name' => 'required',
+           'mobile_number' => 'required|integer|digits:10',
+           'email' => 'required',
+           'password' => 'required',
+           'address' => 'required',
+           'city' => 'required',
+           'pincode' => 'required|integer|digits:6',
+        ]);
         $customer = Customer::create($request->all());
 
         return redirect()->route('admin.customers.index')->with('success', 'Customer created successfully!');
@@ -51,7 +59,14 @@ class CustomersController extends Controller
     public function update(Request $request, Customer $customer)
     {
         abort_unless(\Gate::allows('customer_edit'), 403);
-
+        $request->validate([
+            'name' => 'required',
+            'mobile_number' => 'required|integer|digits:10',
+            'email' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'pincode' => 'required|integer|digits:6',
+        ]);
         $customer->update($request->all());
 
         return redirect()->route('admin.customers.index');

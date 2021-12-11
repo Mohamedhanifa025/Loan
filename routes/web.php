@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ReferralsController;
 use App\Http\Controllers\Admin\SettingsController;
 
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/apply-loan');
 
 Route::redirect('/home', '/admin')->name('home');
 

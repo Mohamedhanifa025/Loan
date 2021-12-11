@@ -1,90 +1,125 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.create') }} {{ trans('global.user.title_singular') }}
+    <!-- Header -->
+    <div class="header bg-primary pb-7">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center pt-2 pb-7 animated fadeInUp">
+                    <div class="col-md-8">
+                        <h1 class="h1 text-white d-inline-block mb-2"><i class="fa fa fa-users mr-2"></i>
+                            {{ trans('global.create') }} {{ trans('global.user.title_singular') }}
+                        </h1>
+                    </div>
+                    {{--                    <div class="col-md-4 breadcrumb float-right mb-0">--}}
+                    {{--                        <a class="breadcrumb-item" href="{{ route('home') }}">{{ trans('global.home') }}</a>--}}
+                    {{--                        <a class="breadcrumb-item"--}}
+                    {{--                           href="{{ route('admin.contacts.index') }}">{{ trans('global.contact.title_singular') }}</a>--}}
+                    {{--                        <span--}}
+                    {{--                            class="breadcrumb-item">{{ trans('global.create') }} {{ trans('global.contact.title_singular') }}</span>--}}
+                    {{--                    </div>--}}
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="card-body">
-        <form action="{{ route("admin.users.store") }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name">{{ trans('global.user.fields.name') }}*</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($user) ? $user->name : '') }}">
-                @if($errors->has('name'))
-                    <p class="help-block">
-                        {{ $errors->first('name') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('global.user.fields.name_helper') }}
-                </p>
+    <!-- Page content -->
+    <div class="container-fluid mt--9">
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card animated fadeInUp">
+                    <div class="card-body">
+                        <form action="{{ route("admin.users.store") }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <label for="name">{{ trans('global.user.fields.name') }}*</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                           value="{{ old('name', isset($user) ? $user->name : '') }}">
+                                    @if($errors->has('name'))
+                                        <p class="help-block">
+                                            {{ $errors->first('name') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.user.fields.name_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                                    <label for="email">{{ trans('global.user.fields.email') }}*</label>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                           value="{{ old('email', isset($user) ? $user->email : '') }}">
+                                    @if($errors->has('email'))
+                                        <p class="help-block">
+                                            {{ $errors->first('email') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.user.fields.email_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                                    <label for="password">{{ trans('global.user.fields.password') }}</label>
+                                    <input type="password" id="password" name="password" class="form-control">
+                                    @if($errors->has('password'))
+                                        <p class="help-block">
+                                            {{ $errors->first('password') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.user.fields.password_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
+                                    <label for="roles">{{ trans('global.user.fields.roles') }}*
+                                        {{--<span class="btn btn-info btn-xs select-all">Select all</span>
+                                        <span class="btn btn-info btn-xs deselect-all">Deselect all</span>--}}
+                                    </label>
+                                    <select name="roles[]" id="roles" class="form-control">
+                                        @foreach($roles as $id => $roles)
+                                            <option
+                                                value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>
+                                                {{ $roles }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('roles'))
+                                        <p class="help-block">
+                                            {{ $errors->first('roles') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.user.fields.roles_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                                    <label for="status">{{ trans('global.customer.fields.status') }}</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1">Active</option>
+                                        <option value="0">InActive</option>
+                                    </select>
+                                    @if($errors->has('status'))
+                                        <p class="help-block">
+                                            {{ $errors->first('status') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.customer.fields.status_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                <label for="email">{{ trans('global.user.fields.email') }}*</label>
-                <input type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($user) ? $user->email : '') }}">
-                @if($errors->has('email'))
-                    <p class="help-block">
-                        {{ $errors->first('email') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('global.user.fields.email_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <label for="password">{{ trans('global.user.fields.password') }}</label>
-                <input type="password" id="password" name="password" class="form-control">
-                @if($errors->has('password'))
-                    <p class="help-block">
-                        {{ $errors->first('password') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('global.user.fields.password_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
-                <label for="roles">{{ trans('global.user.fields.roles') }}*
-                    {{--<span class="btn btn-info btn-xs select-all">Select all</span>
-                    <span class="btn btn-info btn-xs deselect-all">Deselect all</span>--}}
-                </label>
-                <select name="roles[]" id="roles" class="form-control">
-                    @foreach($roles as $id => $roles)
-                        <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>
-                            {{ $roles }}
-                        </option>
-                    @endforeach
-                </select>
-                @if($errors->has('roles'))
-                    <p class="help-block">
-                        {{ $errors->first('roles') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('global.user.fields.roles_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                <label for="status">{{ trans('global.customer.fields.status') }}</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="1">Active</option>
-                    <option value="0">InActive</option>
-                </select>
-                @if($errors->has('status'))
-                    <p class="help-block">
-                        {{ $errors->first('status') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('global.customer.fields.status_helper') }}
-                </p>
-            </div>
-            <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+@endsection
+@section('styles')
+    <style type="text/css">
+        .form-group {
+            margin-bottom: 0;
+        }
+    </style>
 @endsection

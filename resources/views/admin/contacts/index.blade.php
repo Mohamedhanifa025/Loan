@@ -114,14 +114,14 @@
                             <div class="card-body px-lg-5 py-lg-2">
                                 <div class="text-muted mb-4">
                                     <h3>Bulk Import</h3>
-                                    <p class="mb-0">Upload format should be (.csv, .xls)</p>
+                                    <p class="mb-0">Upload format should be .xlsx</p>
                                     <p>Download sample format <a href="{{ asset('import/Import_Contacts_Sample.xlsx') }}" download>Click here</a></p>
                                 </div>
                                 <form action="{{ route('admin.import') }}" method="POST" role="form" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group mb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFileLang" name="file" lang="en">
+                                            <input type="file" class="custom-file-input" id="customFileLang" name="file" lang="en" required>
                                             <label class="custom-file-label" for="customFileLang">Select file</label>
                                         </div>
                                     </div>

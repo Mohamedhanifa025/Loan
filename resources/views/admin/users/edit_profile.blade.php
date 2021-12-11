@@ -1,11 +1,21 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('global.user.my_profile') }}
+    <!-- Header -->
+    <div class="header bg-primary pb-7">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center pt-2 pb-7">
+                    <div class="col-md-12 text-center animated fadeInUp">
+                        <h1 class="h1 text-white d-inline-block mb-2"><i class="fa fa fa-user mr-2"></i> {{ trans('global.edit') }} {{ trans('global.user.my_profile') }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+<div class="container mt--9">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+<div class="card">
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success co-md-12">{{ session('success') }}</div>
@@ -58,5 +68,7 @@
         </form>
     </div>
 </div>
-
+</div>
+    </div>
+</div>
 @endsection

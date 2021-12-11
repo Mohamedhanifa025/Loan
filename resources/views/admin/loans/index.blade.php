@@ -23,6 +23,12 @@
     <!-- Page content -->
     <div class="container-fluid mt--9">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success co-md-12">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div class="col-xl-12">
                 <div class="card animated fadeInUp">
                     <div class="card-header border-0">
