@@ -83,7 +83,9 @@
                         </span>
                                     @endif
                                 </div>
-                                <div id="pl" class="loans-div col-md-12">
+                            </div>
+                            <div class="row">
+                                <div id="pl" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Company Name</label>
                                         <input type="text" value="{{ $loan->company_name }}"
@@ -107,7 +109,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div id="bl" class="loans-div col-md-12">
+                            </div>
+                            <div class="row">
+                                <div id="bl" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Type of Company</label>
                                         <select name="company_type" id=""
@@ -155,7 +159,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div id="hl" class="loans-div col-md-12">
+                            </div>
+                            <div class="row">
+                                <div id="hl" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Income Type</label>
                                         <select name="income_type" id=""
@@ -226,7 +232,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div id="cl" class="loans-div col-md-12">
+                            </div>
+                            <div class="row">
+                                <div id="cl" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Income Type</label>
                                         <select name="income_type" id=""
@@ -297,7 +305,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div id="dl" class="loans-div col-md-12">
+                            </div>
+                            <div class="row">
+                                <div id="dl" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Employee Type</label>
                                         <select name="employee_type" id=""
@@ -318,7 +328,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div id="lap" class="loans-div">
+                            </div>
+                            <div class="row">
+                                <div id="lap" class="loans-div col-md-12 form-row">
                                     <div class="col-md-6 form-group">
                                         <label for="">Income Type</label>
                                         <select name="income_type" id=""
@@ -389,6 +401,8 @@
                                         @endif
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6 form-group {{ $errors->has('location') ? 'has-error' : '' }}">
                                     <label for="location">{{ trans('global.loan.fields.location') }}</label>
                                     <input type="text" id="location" name="location" class="form-control"

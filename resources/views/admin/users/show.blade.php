@@ -13,7 +13,7 @@
                     {{--<div class="col-md-4 breadcrumb float-right mb-0">
                         <a class="breadcrumb-item" href="{{ route('home') }}">{{ trans('global.home') }}</a>
                         <a class="breadcrumb-item"href="{{ route('admin.contacts.index') }}">{{ trans('global.customer.title') }}</a>
-                        <span class="breadcrumb-item">{{ trans('global.customer.title') }} #{{ $customer->id }}</span>
+                        <span class="breadcrumb-item">{{ trans('global.customer.title') }} #{{ $user->id }}</span>
                     </div>--}}
                 </div>
             </div>
@@ -59,6 +59,30 @@
                                     @foreach($user->roles as $id => $roles)
                                         <span class="label label-info label-many">{{ $roles->title }}</span>
                                     @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('global.customer.fields.address') }}
+                                </th>
+                                <td>
+                                    {{ $user->address }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('global.customer.fields.city') }}
+                                </th>
+                                <td>
+                                    {{ $user->city }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('global.customer.fields.pincode') }}
+                                </th>
+                                <td>
+                                    {{  $user->pincode }}
                                 </td>
                             </tr>
                             </tbody>

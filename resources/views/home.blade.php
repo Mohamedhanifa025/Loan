@@ -31,6 +31,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(in_array(1, auth()->user()->roles->pluck('id')->toArray()))
                     <div class="col-md-4">
                         <div class="card card-stats animated fadeInUp">
                             <!-- Card body -->
@@ -73,6 +74,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -98,7 +100,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">Customer Name</th>
+                                @if(in_array(1, auth()->user()->roles->pluck('id')->toArray()))
                                 <th scope="col">Mobile Number</th>
+                                @endif
                                 <th scope="col">Register Date</th>
                             </tr>
                             </thead>
@@ -107,7 +111,9 @@
                             @foreach($recent_customers as $customer)
                                 <tr>
                                     <td>{{ $customer->name }}</td>
+                                    @if(in_array(1, auth()->user()->roles->pluck('id')->toArray()))
                                     <td>{{ $customer->mobile_number }}</td>
+                                    @endif
                                     <td>{{ date('d/m/Y', strtotime($customer->created_at)) }}</td>
                                 </tr>
                             @endforeach

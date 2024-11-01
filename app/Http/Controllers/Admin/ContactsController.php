@@ -22,9 +22,11 @@ class ContactsController extends Controller
                     ->orWhere('mobile_number', 'LIKE', "%$request->term%");
             });
         }
-
         if($request->has('employee_id') && $request->employee_id != '') {
             $contacts = $contacts->where('user_id', $request->employee_id);
+        }
+        if(in_array(2, auth()->user()->roles->pluck('id')->toArray())) {
+            $contacts = $contacts->where('user_id', auth()->user()->id);
         }
 
         $contacts = $contacts->get();

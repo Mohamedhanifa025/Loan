@@ -41,10 +41,13 @@ return [
             'provider' => 'users',
         ],
 
-        'customers' => [
-            'driver' => 'token',
+        'customersapi' => [
+            'driver' => 'passport',
             'provider' => 'customers',
-            'hash' => false,
+        ],
+        'customers' => [
+            'driver' => 'session',
+            'provider' => 'customers',
         ],
     ],
 

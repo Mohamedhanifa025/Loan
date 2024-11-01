@@ -38,6 +38,18 @@
                                         {{ trans('global.user.fields.name_helper') }}
                                     </p>
                                 </div>
+                                <div class="col-md-6 form-group {{ $errors->has('mobile_number') ? 'has-error' : '' }}">
+                                    <label for="mobile_number">{{ trans('global.customer.fields.mobile_number') }}</label>
+                                    <input type="number" id="mobile_number" name="mobile_number" class="form-control" value="{{ old('name', isset($user) ? $user->mobile_number : '') }}">
+                                    @if($errors->has('mobile_number'))
+                                        <p class="help-block">
+                                            {{ $errors->first('mobile_number') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.customer.fields.mobile_number_helper') }}
+                                    </p>
+                                </div>
                                 <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <label for="email">{{ trans('global.user.fields.email') }}*</label>
                                     <input type="email" id="email" name="email" class="form-control"
@@ -61,6 +73,42 @@
                                     @endif
                                     <p class="helper-block">
                                         {{ trans('global.user.fields.password_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }}">
+                                    <label for="address">{{ trans('global.customer.fields.address') }}</label>
+                                    <input type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($user) ? $user->address : '') }}">
+                                    @if($errors->has('address'))
+                                        <p class="help-block">
+                                            {{ $errors->first('address') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.customer.fields.address_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('city') ? 'has-error' : '' }}">
+                                    <label for="city">{{ trans('global.customer.fields.city') }}</label>
+                                    <input type="text" id="city" name="city" class="form-control" value="{{ old('city', isset($user) ? $user->city : '') }}">
+                                    @if($errors->has('city'))
+                                        <p class="help-block">
+                                            {{ $errors->first('city') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.customer.fields.city_helper') }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('pincode') ? 'has-error' : '' }}">
+                                    <label for="pincode">{{ trans('global.customer.fields.pincode') }}</label>
+                                    <input type="text" id="pincode" name="pincode" class="form-control" value="{{ old('pincode', isset($user) ? $user->pincode : '') }}">
+                                    @if($errors->has('pincode'))
+                                        <p class="help-block">
+                                            {{ $errors->first('pincode') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.customer.fields.pincode_helper') }}
                                     </p>
                                 </div>
                                 <div class="col-md-6 form-group {{ $errors->has('roles') ? 'has-error' : '' }}">

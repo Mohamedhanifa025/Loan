@@ -44,6 +44,7 @@
                         {{ \Session::get('error') }}
                     </p>
                 @endif
+   
             <form class="form" method="POST" action="{{ route('apply.loan.store') }}">
                 @csrf
                 <div class="form-group">
@@ -101,7 +102,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Take Home Salary</label>
-                        <input type="tel" placeholder="50000" maxlength="10" class="form-control {{ $errors->has('salary') ? ' is-invalid' : '' }}" name="salary" placeholder="Enter your salary">
+                        <input type="tel" placeholder="50000" maxlength="6" decimals="2" class="form-control {{ $errors->has('salary') ? ' is-invalid' : '' }}" name="salary" placeholder="Enter your salary">
                         @if ($errors->has('salary'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('salary') }}</strong>

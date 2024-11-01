@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Mail\VerifyMail;
 use App\User;
 use App\VerifyUser;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class LoginApiController extends Controller
 {
+    use SendsPasswordResetEmails;
     /**
      * login api
      *
@@ -21,10 +24,19 @@ class LoginApiController extends Controller
     public function login(){
         $credentials = request()->only('email', 'password');
 
-        if(Auth::guard('customers')->loginUsingId(1)){
-            $user = Auth::guard('customers');
+        if(Auth::guard('customers')->attempt(['email' => request('email'), 'password' => request('password')])) {
+            $user = Auth::guard('customers')->user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
+            $success['user'] =  $user;
+            $success['loan_types'] = [
+                "pl" => "Personal Loan",
+                "bl" => "Business Loan",
+                "hl" => "Home Loan",
+                "cl" => "Car Loan",
+                "dl" => "Doctor Loan",
+                "lap" => "Loan Against Property"
+            ];
+            return response()->json(['status' => 1, 'message' => 'Login successfully!', 'data' => $success], 200);
         }
         else{
             return response()->json(['error'=>'Email or password incorrect'], 401);
@@ -80,10 +92,10 @@ class LoginApiController extends Controller
      */
     public function forgotPassword(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = Customer::where('email', $request->email)->first();
         if($user) {
-            $this->sendResetLinkEmail($request);
-            return response()->json(['status' => 1, 'message' => 'Password reset email sent!'], $this->successStatus);
+            $data = $this->sendResetLinkEmail($request);
+            return response()->json(['status' => 1, 'message' => 'Password reset email sent!', 'data' => $data], 200);
         } else {
             return response()->json(['status' => 0, 'message'=> 'Invalid Email!'], 200);
         }
@@ -95,10 +107,8 @@ class LoginApiController extends Controller
      */
     public function details()
     {
-        $user = Auth::user();
-        $user_language = $user->language;
-        $user['language'] = $user_language;
-        return response()->json(['status' => 1, 'message' => 'success', 'data' => $user], $this->successStatus);
+        $user = Auth::guard()->user();
+        return response()->json(['status' => 1, 'message' => 'success', 'data' => $user], 200);
     }
     /**
      * details api
@@ -107,18 +117,52 @@ class LoginApiController extends Controller
      */
     public function profileUpdate(Request $request)
     {
-        $user = Auth::user();
-        $data = $request->only(['email','name']);
-        $existEmail = User::checkEmail($user->id, $request->email);
-        if(!$existEmail) {
-            if($request->has('password')){
-                $data['password'] = bcrypt($request->password);
-            }
-            $profile = User::profileUpdate($user->id, $data);
-            return response()->json(['status' => 1, 'message' => 'success'], $this->successStatus);
-        } else {
-            return response()->json(['status' => 0, 'message'=> 'Email exists!'], 200);
+        $user = Auth::guard()->user();
+        $existEmail = null;
+        if($user->email != $request->email) {
+            $existEmail = Customer::where('email', $request->email)->first();
         }
+        if(is_null($existEmail)) {
+            $data = $request->all();
+            Customer::where('id', $user->id)->update($data);
+            return response()->json(['status' => 1, 'message' => 'success', 'data' => Auth::guard()->user()->refresh()], 200);
+        } else {
+            return response()->json(['status' => 0, 'message'=> 'Email already taken!'], 400);
+        }
+    }
+    /**
+     * details api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword(Request $request)
+    {
+        $user = Auth::guard()->user();
+        if($request->has('new_password') && $request->new_password != "" && $request->has('confirm_password') && $request->confirm_password != "" && $request->has('old_password') && $request->old_password != "") {
+            $old_password = $request->old_password;
+            if(Hash::check($old_password, $user->password)) {
+                if($request->confirm_password == $request->new_password) {
+                    $data['password'] = Hash::make($request->new_password);
+                    Customer::where('id', $user->id)->update($data);
+                    $status = 1;
+                    $message ="Password changed successfully!";
+                    $code = 200;
+                } else {
+                    $status = 0;
+                    $message ="Confirm password doesn't match!";
+                    $code = 400;
+                }
+            } else {
+                $status = 0;
+                $message ="Invalid Old Password!";
+                $code = 400;
+            }
+        } else {
+            $status = 0;
+            $message ="Enter Old/New/Confirm Password!";
+            $code = 400;
+        }
+        return response()->json(['status' => $status, 'message'=> $message], $code);
     }
     public function baseUrls()
     {

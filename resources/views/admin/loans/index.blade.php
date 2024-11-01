@@ -56,7 +56,9 @@
                             <tr>
                                 <th scope="col" data-orderable="false">{{ trans('global.loan.fields.name') }}</th>
                                 <th scope="col" data-orderable="false">{{ trans('global.loan.fields.email') }}</th>
+                                @if(in_array(1, auth()->user()->roles->pluck('id')->toArray()))
                                 <th scope="col" data-orderable="false">{{ trans('global.loan.fields.mobile_number') }}</th>
+                                @endif
                                 <th scope="col" data-orderable="false">{{ trans('global.loan.fields.type') }}</th>
                                 {{--<th scope="col" data-orderable="false">{{ trans('global.loan.fields.city') }}</th>--}}
                                 <th scope="col" data-orderable="false">{{ trans('global.loan.fields.status') }}</th>
@@ -72,9 +74,11 @@
                                     <td>
                                         {{ $loan->email ?? '' }}
                                     </td>
+                                    @if(in_array(1, auth()->user()->roles->pluck('id')->toArray()))
                                     <td>
                                         {{ $loan->mobile_number ?? '' }}
                                     </td>
+                                    @endif
                                     <td>
                                         {{ $loan->type_text ?? '' }}
                                     </td>

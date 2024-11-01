@@ -23,8 +23,8 @@ class UsersController extends Controller
             $users = $users->where('name', 'LIKE', "%$request->term%")
                 ->orWhere('email', 'LIKE', "%$request->term%")
                 ->orWhere('id', str_replace('emp', '',strtolower($request->term)))
-                ->orWhere('id', str_replace('emp0', '',strtolower($request->term)))
-                ->orWhere('mobile_number', 'LIKE', "%$request->term%");
+                ->orWhere('id', str_replace('emp0', '',strtolower($request->term)));
+                //->orWhere('mobile_number', 'LIKE', "%$request->term%");
         }
 
         if($request->has('status') && $request->status != '') {
@@ -51,7 +51,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'mobile_number' => 'required|integer|digits:10',
+            //'mobile_number' => 'required|integer|digits:10',
         ]);
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
@@ -79,7 +79,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'mobile_number' => 'required|integer|digits:10',
+            //'mobile_number' => 'required|integer|digits:10',
         ]);
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
@@ -93,7 +93,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'mobile_number' => 'required|integer|digits:10',
+            //'mobile_number' => 'required|integer|digits:10',
         ]);
         $user = User::find($id);
         $user->update($request->all());

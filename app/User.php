@@ -36,7 +36,10 @@ class User extends Authenticatable
         'remember_token',
         'email_verified_at',
         'status',
-        'mobile_number'
+        'mobile_number',
+        'address',
+        'city',
+        'pincode'
     ];
 
     protected $appends = ['employee_id'];

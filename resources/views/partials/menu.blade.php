@@ -53,18 +53,22 @@
                             </ul>
                         </li>
                     @endcan
+                    @can('customer_access')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("admin.customers.index") }}">
                             <i class="fa fa-users"></i>
                                 <span class="nav-link-text">{{ trans('global.customer.title') }}</span>
                         </a>
                     </li>
+                    @endcan
+                    {{--@can('contact_access')--}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("admin.contacts.index") }}">
                             <i class="fas fa-address-book" aria-hidden="true"></i>
                             <span class="nav-link-text">{{ trans('global.contact.title') }}</span>
                         </a>
                     </li>
+                    {{--@endcan--}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("admin.notifications.index") }}">
                             <i class="fas fa-bell" aria-hidden="true"></i>
@@ -84,28 +88,28 @@
                             <span class="nav-link-text">{{ trans('global.referral.title') }}</span>
                         </a>
                     </li>--}}
-
+                    @can('setting_access')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("admin.settings.index") }}">
                             <i class="fas fa-cogs" aria-hidden="true"></i>
                             <span class="nav-link-text">{{ trans('global.setting.title') }}</span>
                         </a>
                     </li>
-
+                    @endcan
+                    @can('user_edit')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("admin.users.edit", auth()->user()->id) }}">
                             <i class="fa fa-user"></i>
                             <span class="nav-link-text">{{ trans('global.user.my_profile') }}</span>
                         </a>
                     </li>
-
+                    @endcan
                     <li class="nav-item">
                         <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                             <i class="fas fa-sign-out-alt"></i>
                             <span class="nav-link-text">{{ trans('global.logout') }}</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>

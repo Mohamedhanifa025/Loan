@@ -21,4 +21,9 @@ class ApplyLoan extends Model
     {
         return $this->status == 1?'Active':'InActive';
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

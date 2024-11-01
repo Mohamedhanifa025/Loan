@@ -58,6 +58,19 @@
                     {{ trans('global.customer.fields.email_helper') }}
                 </p>
             </div>
+                <div class="col-md-6 form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                    <label for="address">{{ trans('global.customer.fields.password') }}</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           value="">
+                    @if($errors->has('password'))
+                        <p class="help-block">
+                            {{ $errors->first('password') }}
+                        </p>
+                    @endif
+                    <p class="helper-block">
+                        {{ trans('global.customer.fields.password_helper') }}
+                    </p>
+                </div>
             <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }}">
                 <label for="address">{{ trans('global.customer.fields.email') }}</label>
                 <input type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($customer) ? $customer->address : '') }}">

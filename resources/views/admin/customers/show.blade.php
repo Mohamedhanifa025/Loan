@@ -93,6 +93,41 @@
                             </tr>
                             </tbody>
                         </table>
+                        {{--{{ dd($customer->referrals) }}--}}
+                        <br>
+                        <div class="col-md-12"><p>Total Referrals : {{ count($customer->referrals) }}</p></div>
+                        <div class="table-responsive">
+                            <table class="datatable table align-items-center table-flush">
+                                <thead>
+                                <tr>
+                                    <th scope="col" data-orderable="false">{{ trans('global.customer.fields.name') }}</th>
+                                    <th scope="col" data-orderable="false">{{ trans('global.customer.fields.mobile_number') }}</th>
+                                    <th scope="col" class="text-center">{{ trans('global.status') }}</th>
+                                    <th scope="col">{{ trans('global.rewards') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($customer->referrals as $referral)
+                                    @if(!is_null($referral->customers))
+                                    <tr data-entry-id="{{ $referral->customers->id ?? '' }}">
+                                        <td>
+                                            {{ $referral->customers->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $referral->customers->mobile_number ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span class="py-1 text-uppercase px-2 rounded small {{ $referral->status ==1 ? 'bg-success':'bg-danger' }} text-white">{{ $referral->status ==1 ? 'Active':'InActive' }}</span>
+                                        </td>
+                                        <td class="font-weight-bold text-center">
+                                            <span class="py-1 text-uppercase px-2 rounded bg-yellow text-black">{{ $referral->points ?? '' }}</span>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

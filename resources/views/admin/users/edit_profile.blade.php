@@ -62,6 +62,42 @@
                     {{ trans('global.user.fields.mobile_number_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
+                <label for="address">{{ trans('global.customer.fields.address') }}</label>
+                <input type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($user) ? $user->address : '') }}">
+                @if($errors->has('address'))
+                    <p class="help-block">
+                        {{ $errors->first('address') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('global.customer.fields.address_helper') }}
+                </p>
+            </div>
+            <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
+                <label for="city">{{ trans('global.customer.fields.city') }}</label>
+                <input type="text" id="city" name="city" class="form-control" value="{{ old('city', isset($user) ? $user->city : '') }}">
+                @if($errors->has('city'))
+                    <p class="help-block">
+                        {{ $errors->first('city') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('global.customer.fields.city_helper') }}
+                </p>
+            </div>
+            <div class="form-group {{ $errors->has('pincode') ? 'has-error' : '' }}">
+                <label for="pincode">{{ trans('global.customer.fields.pincode') }}</label>
+                <input type="text" id="pincode" name="pincode" class="form-control" value="{{ old('pincode', isset($user) ? $user->pincode : '') }}">
+                @if($errors->has('pincode'))
+                    <p class="help-block">
+                        {{ $errors->first('pincode') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('global.customer.fields.pincode_helper') }}
+                </p>
+            </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>

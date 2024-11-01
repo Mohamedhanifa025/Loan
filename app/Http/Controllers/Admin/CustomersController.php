@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Customer;
+use Illuminate\Support\Facades\Hash;
 
 class CustomersController extends Controller
 {
@@ -44,6 +45,7 @@ class CustomersController extends Controller
            'city' => 'required',
            'pincode' => 'required|integer|digits:6',
         ]);
+        $request->merge(['password' => bcrypt($request->password)]);
         $customer = Customer::create($request->all());
 
         return redirect()->route('admin.customers.index')->with('success', 'Customer created successfully!');
@@ -67,9 +69,15 @@ class CustomersController extends Controller
             'city' => 'required',
             'pincode' => 'required|integer|digits:6',
         ]);
-        $customer->update($request->all());
+        $data = $request->all();
+        if($request->has('password') && $request->password != '' && !is_null($request->password)) {
+            $data['password'] = Hash::make($request->password);
+        } else {
+            $data = $request->except(['password']);
+        }
+        $customer->update($data);
 
-        return redirect()->route('admin.customers.index');
+        return redirect()->route('admin.customers.index')->with('success', 'Customer update successfully!');
     }
 
     public function show(Customer $customer)

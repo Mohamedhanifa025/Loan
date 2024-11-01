@@ -24,7 +24,7 @@ class Customer extends Authenticatable
 
     public function referrals()
     {
-        return $this->hasMany(Referral::class, 'referred_id', 'id');
+        return $this->hasMany(Referral::class, 'referred_id', 'id')->with('customers');
     }
     public function getRegisteredAttribute()
     {
@@ -33,8 +33,12 @@ class Customer extends Authenticatable
 
     public function getRewardsAttribute()
     {
-        return $this->referrals()->sum('points');
+        return $this->referrals()->where('status', 1)->sum('points');
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(Contacts::class);
+    }
 
 }
